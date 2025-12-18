@@ -127,9 +127,9 @@ class GUI extends React.Component {
             console.log('Applying patch:', patch);
 
             // Handle single sprite update
-            if (patch.action === 'updateSprite' && patch.spriteName && patch.sprite) {
+            if (patch.action === 'updateSpriteBlocks' && patch.spriteName && patch.blocks) {
                 const spriteName = patch.spriteName;
-                const spriteData = patch.sprite;
+                const blocks = patch.blocks
 
                 // Find the target sprite in the VM
                 const runtime = this.props.vm.runtime;
@@ -146,24 +146,24 @@ class GUI extends React.Component {
                 console.log(`Target sprite object:`, targetSprite);
                 console.log(`Current blocks:`, targetSprite.blocks);
                 console.log(`Current block count:`, Object.keys(targetSprite.blocks._blocks).length);
-                console.log(`New blocks to apply:`, spriteData.blocks);
-                console.log(`New block count:`, Object.keys(spriteData.blocks).length);
+                console.log(`New blocks to apply:`, blocks);
+                console.log(`New block count:`, Object.keys(blocks).length);
 
                 // Update the sprite's blocks
-                if (spriteData.blocks) {
+                if (blocks) {
                     // Import the deserializeBlocks function from sb3
                     const {deserializeBlocks} = require('scratch-vm/src/serialization/sb3');
 
                     // Clear existing blocks first
                     const existingBlockIds = Object.keys(targetSprite.blocks._blocks);
                     console.log(`Deleting ${existingBlockIds.length} existing blocks:`, existingBlockIds);
-                    if (existingBlockIds.length > 0) {
-                        targetSprite.blocks.deleteBlocks(existingBlockIds);
-                    }
+                    existingBlockIds.forEach(blockId => {
+                        targetSprite.blocks.deleteBlock(blockId);
+                    });
 
                     // Deserialize the blocks (converts compressed format to full format)
                     console.log(`Deserializing blocks...`);
-                    const deserializedBlocks = deserializeBlocks(spriteData.blocks);
+                    const deserializedBlocks = deserializeBlocks(blocks);
                     console.log(`Deserialized blocks:`, deserializedBlocks);
 
                     // Add new blocks - need to use createBlock for each one
@@ -183,20 +183,21 @@ class GUI extends React.Component {
                 }
 
                 // Update the sprite's variables
+                /*
                 if (spriteData.variables) {
                     Object.entries(spriteData.variables).forEach(([id, variable]) => {
                         targetSprite.createVariable(id, variable[0], variable[1]);
                     });
                     console.log(`Updated variables for sprite "${spriteName}"`);
-                }
+                }*/
 
                 // Update the sprite's lists
-                if (spriteData.lists) {
+                /*if (spriteData.lists) {
                     Object.entries(spriteData.lists).forEach(([id, list]) => {
                         targetSprite.createList(id, list[0], list[1]);
                     });
                     console.log(`Updated lists for sprite "${spriteName}"`);
-                }
+                }*/
 
                 // Switch to the updated sprite to see the changes
                 const spriteIndex = this.props.vm.runtime.targets.indexOf(targetSprite);

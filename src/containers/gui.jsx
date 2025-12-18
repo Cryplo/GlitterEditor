@@ -71,9 +71,12 @@ class GUI extends React.Component {
         window.removeEventListener('message', this.handlePostMessage);
     }
     handlePostMessage (event) {
+        console.log('[GlitterEditor] Received postMessage:', event.data);
+
         // Handle GET_PROJECT_STATE request from GlitterCode
         if (event.data?.type === 'GET_PROJECT_STATE') {
             const requestId = event.data.requestId;
+            console.log('[GlitterEditor] GET_PROJECT_STATE request, ID:', requestId);
 
             // Get project state from VM
             const projectState = this.props.vm ? this.getProjectState() : null;
@@ -85,14 +88,16 @@ class GUI extends React.Component {
                     requestId: requestId,
                     state: projectState
                 }, event.origin);
+                console.log('[GlitterEditor] Sent PROJECT_STATE_RESPONSE');
             }
         }
 
         // Handle GLITTER_APPLY_PATCH from GlitterCode (for applying agent changes)
         if (event.data?.type === 'GLITTER_APPLY_PATCH') {
+            console.log('[GlitterEditor] GLITTER_APPLY_PATCH received');
             const patch = event.data.patch;
-            // TODO: Implement patch application logic
-            console.log('Received patch to apply:', patch);
+            console.log('[GlitterEditor] Patch data:', patch);
+            this.applyPatch(patch);
         }
     }
     getProjectState () {
@@ -103,6 +108,111 @@ class GUI extends React.Component {
         } catch (error) {
             console.error('Error getting project state:', error);
             return null;
+        }
+    }
+    applyPatch (patch) {
+        // Apply a patch to update a single sprite
+        try {
+            if (!this.props.vm) {
+                console.error('VM not available for patching');
+                return;
+            }
+
+            console.log('Applying patch:', patch);
+
+            // Handle single sprite update
+            if (patch.action === 'updateSprite' && patch.spriteName && patch.sprite) {
+                const spriteName = patch.spriteName;
+                const spriteData = patch.sprite;
+
+                // Find the target sprite in the VM
+                const runtime = this.props.vm.runtime;
+                const targetSprite = runtime.targets.find(target =>
+                    !target.isStage && target.sprite.name === spriteName
+                );
+
+                if (!targetSprite) {
+                    console.error(`Sprite "${spriteName}" not found in project`);
+                    return;
+                }
+
+                console.log(`Found target sprite: ${targetSprite.sprite.name}`);
+                console.log(`Target sprite object:`, targetSprite);
+                console.log(`Current blocks:`, targetSprite.blocks);
+                console.log(`Current block count:`, Object.keys(targetSprite.blocks._blocks).length);
+                console.log(`New blocks to apply:`, spriteData.blocks);
+                console.log(`New block count:`, Object.keys(spriteData.blocks).length);
+
+                // Update the sprite's blocks
+                if (spriteData.blocks) {
+                    // Import the deserializeBlocks function from sb3
+                    const {deserializeBlocks} = require('scratch-vm/src/serialization/sb3');
+
+                    // Clear existing blocks first
+                    const existingBlockIds = Object.keys(targetSprite.blocks._blocks);
+                    console.log(`Deleting ${existingBlockIds.length} existing blocks:`, existingBlockIds);
+                    if (existingBlockIds.length > 0) {
+                        targetSprite.blocks.deleteBlocks(existingBlockIds);
+                    }
+
+                    // Deserialize the blocks (converts compressed format to full format)
+                    console.log(`Deserializing blocks...`);
+                    const deserializedBlocks = deserializeBlocks(spriteData.blocks);
+                    console.log(`Deserialized blocks:`, deserializedBlocks);
+
+                    // Add new blocks - need to use createBlock for each one
+                    console.log(`Adding deserialized blocks...`);
+                    for (const blockId in deserializedBlocks) {
+                        const blockData = deserializedBlocks[blockId];
+                        console.log(`Creating block ${blockId}:`, blockData);
+
+                        // The ID is already in blockData from deserialization
+                        targetSprite.blocks.createBlock(blockData);
+                    }
+
+                    console.log(`Updated blocks for sprite "${spriteName}"`);
+                    console.log(`Blocks after update:`, targetSprite.blocks);
+                    console.log(`Block count after update:`, Object.keys(targetSprite.blocks._blocks).length);
+                    console.log(`Block IDs after update:`, Object.keys(targetSprite.blocks._blocks));
+                }
+
+                // Update the sprite's variables
+                if (spriteData.variables) {
+                    Object.entries(spriteData.variables).forEach(([id, variable]) => {
+                        targetSprite.createVariable(id, variable[0], variable[1]);
+                    });
+                    console.log(`Updated variables for sprite "${spriteName}"`);
+                }
+
+                // Update the sprite's lists
+                if (spriteData.lists) {
+                    Object.entries(spriteData.lists).forEach(([id, list]) => {
+                        targetSprite.createList(id, list[0], list[1]);
+                    });
+                    console.log(`Updated lists for sprite "${spriteName}"`);
+                }
+
+                // Switch to the updated sprite to see the changes
+                const spriteIndex = this.props.vm.runtime.targets.indexOf(targetSprite);
+                console.log(`Setting editing target to sprite index: ${spriteIndex}`);
+                this.props.vm.setEditingTarget(targetSprite.id);
+
+                // Refresh the workspace - emit updates to trigger UI refresh
+                console.log(`Emitting targets update...`);
+                this.props.vm.emitTargetsUpdate();
+                console.log(`Emitting workspace update...`);
+                this.props.vm.emitWorkspaceUpdate();
+                console.log(`Successfully updated sprite "${spriteName}"`);
+
+                // Force a refresh by requesting blocks update
+                console.log(`Requesting blocks update from workspace...`);
+                this.props.vm.runtime.requestBlocksUpdate();
+                console.log(`Patch application complete!`);
+            } else {
+                console.error('Invalid patch format. Expected action: "updateSprite"');
+            }
+        } catch (error) {
+            console.error('Error applying patch:', error);
         }
     }
     componentDidUpdate (prevProps) {

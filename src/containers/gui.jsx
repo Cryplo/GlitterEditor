@@ -94,10 +94,19 @@ class GUI extends React.Component {
 
         // Handle GLITTER_APPLY_PATCH from GlitterCode (for applying agent changes)
         if (event.data?.type === 'GLITTER_APPLY_PATCH') {
-            console.log('[GlitterEditor] GLITTER_APPLY_PATCH received');
+            const requestId = event.data.requestId;
+            console.log('[GlitterEditor] GLITTER_APPLY_PATCH received, ID:', requestId);
             const patch = event.data.patch;
             console.log('[GlitterEditor] Patch data:', patch);
             this.applyPatch(patch);
+            // Send response back to parent
+            if (event.source) {
+                event.source.postMessage({
+                    type: 'APPLY_PATCH_RESPONSE',
+                    requestId: requestId,
+                }, event.origin);
+                console.log('[GlitterEditor] Sent APPLY_PATCH_RESPONSE');
+            }
         }
 
         if (event.data?.type === 'GLITTER_LOAD_PROJECT') {

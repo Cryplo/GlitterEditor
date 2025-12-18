@@ -1,7 +1,7 @@
 const guiColors = {
     'color-scheme': 'light',
 
-    'ui-primary': 'hsla(215, 100%, 95%, 1)', /* #E5F0FF */
+    'ui-primary': '#FFFFFFCC', /* #E5F0FF */
     'ui-secondary': 'hsla(215, 75%, 95%, 1)', /* #E9F1FC */
     'ui-tertiary': 'hsla(215, 50%, 90%, 1)', /* #D9E3F2 */
 

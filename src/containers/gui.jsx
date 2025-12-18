@@ -99,6 +99,12 @@ class GUI extends React.Component {
             console.log('[GlitterEditor] Patch data:', patch);
             this.applyPatch(patch);
         }
+
+        if (event.data?.type === 'GLITTER_LOAD_PROJECT') {
+            const projectData = event.data.projectData;
+            const name = event.data.fileName;            
+            this.loadProject(projectData);
+        }
     }
     getProjectState () {
         // Get the project JSON from the VM
@@ -214,6 +220,14 @@ class GUI extends React.Component {
         } catch (error) {
             console.error('Error applying patch:', error);
         }
+    }
+    loadProject (projectData) {
+        var binaryString = atob(projectData);
+        var bytes = new Uint8Array(binaryString.length);
+        for (var i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        this.props.vm.loadProject(bytes.buffer);
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId) {

@@ -54,11 +54,56 @@ const setProjectIdMetadata = projectId => {
 };
 
 class GUI extends React.Component {
+    constructor (props) {
+        super(props);
+        this.handlePostMessage = this.handlePostMessage.bind(this);
+    }
     componentDidMount () {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
         setProjectIdMetadata(this.props.projectId);
+
+        // Listen for project state requests from parent window (GlitterCode)
+        window.addEventListener('message', this.handlePostMessage);
+    }
+    componentWillUnmount () {
+        window.removeEventListener('message', this.handlePostMessage);
+    }
+    handlePostMessage (event) {
+        // Handle GET_PROJECT_STATE request from GlitterCode
+        if (event.data?.type === 'GET_PROJECT_STATE') {
+            const requestId = event.data.requestId;
+
+            // Get project state from VM
+            const projectState = this.props.vm ? this.getProjectState() : null;
+
+            // Send response back to parent
+            if (event.source) {
+                event.source.postMessage({
+                    type: 'PROJECT_STATE_RESPONSE',
+                    requestId: requestId,
+                    state: projectState
+                }, event.origin);
+            }
+        }
+
+        // Handle GLITTER_APPLY_PATCH from GlitterCode (for applying agent changes)
+        if (event.data?.type === 'GLITTER_APPLY_PATCH') {
+            const patch = event.data.patch;
+            // TODO: Implement patch application logic
+            console.log('Received patch to apply:', patch);
+        }
+    }
+    getProjectState () {
+        // Get the project JSON from the VM
+        try {
+            const projectJson = this.props.vm.toJSON();
+            return JSON.stringify(projectJson);
+        } catch (error) {
+            console.error('Error getting project state:', error);
+            return null;
+        }
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId) {

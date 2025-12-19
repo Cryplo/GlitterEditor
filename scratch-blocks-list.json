@@ -1,0 +1,3900 @@
+{
+  "metadata": {
+    "generatedAt": "2025-12-19T02:49:37.076Z",
+    "totalBlocks": 137,
+    "blocksWithDropdowns": 29,
+    "categories": [
+      "control",
+      "data",
+      "events",
+      "looks",
+      "motion",
+      "operators",
+      "procedures",
+      "sensing",
+      "sound"
+    ]
+  },
+  "blocks": [
+    {
+      "opcode": "control_all_at_once",
+      "category": "control",
+      "type": "command",
+      "functionName": "allAtOnce",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_clear_counter",
+      "category": "control",
+      "type": "command",
+      "functionName": "clearCounter",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_create_clone_of",
+      "category": "control",
+      "type": "command",
+      "functionName": "createClone",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_create_clone_of_menu",
+      "category": "control",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "CLONE_OPTION",
+          "options": [
+            {
+              "label": "CONTROL_CREATECLONEOF_MYSELF",
+              "value": "_myself_"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "control_delete_this_clone",
+      "category": "control",
+      "type": "command",
+      "functionName": "deleteClone",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_for_each",
+      "category": "control",
+      "type": "loop",
+      "functionName": "forEach",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_forever",
+      "category": "control",
+      "type": "loop",
+      "functionName": "forever",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_get_counter",
+      "category": "control",
+      "type": "command",
+      "functionName": "getCounter",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_if",
+      "category": "control",
+      "type": "conditional",
+      "functionName": "if",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_if_else",
+      "category": "control",
+      "type": "conditional",
+      "functionName": "ifElse",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_incr_counter",
+      "category": "control",
+      "type": "command",
+      "functionName": "incrCounter",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_repeat",
+      "category": "control",
+      "type": "loop",
+      "functionName": "repeat",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_repeat_until",
+      "category": "control",
+      "type": "loop",
+      "functionName": "repeatUntil",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_start_as_clone",
+      "category": "control",
+      "type": "hat",
+      "functionName": null,
+      "source": "hats"
+    },
+    {
+      "opcode": "control_stop",
+      "category": "control",
+      "type": "command",
+      "functionName": "stop",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_wait",
+      "category": "control",
+      "type": "command",
+      "functionName": "wait",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_wait_until",
+      "category": "control",
+      "type": "command",
+      "functionName": "waitUntil",
+      "source": "primitives"
+    },
+    {
+      "opcode": "control_while",
+      "category": "control",
+      "type": "loop",
+      "functionName": "repeatWhile",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_addtolist",
+      "category": "data",
+      "type": "command",
+      "functionName": "addToList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_changevariableby",
+      "category": "data",
+      "type": "command",
+      "functionName": "changeVariableBy",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_deletealloflist",
+      "category": "data",
+      "type": "command",
+      "functionName": "deleteAllOfList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_deleteoflist",
+      "category": "data",
+      "type": "command",
+      "functionName": "deleteOfList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_hidelist",
+      "category": "data",
+      "type": "command",
+      "functionName": "hideList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_hidevariable",
+      "category": "data",
+      "type": "command",
+      "functionName": "hideVariable",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_insertatlist",
+      "category": "data",
+      "type": "command",
+      "functionName": "insertAtList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_itemnumoflist",
+      "category": "data",
+      "type": "command",
+      "functionName": "getItemNumOfList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_itemoflist",
+      "category": "data",
+      "type": "command",
+      "functionName": "getItemOfList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_lengthoflist",
+      "category": "data",
+      "type": "command",
+      "functionName": "lengthOfList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_listcontainsitem",
+      "category": "data",
+      "type": "command",
+      "functionName": "listContainsItem",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_listcontents",
+      "category": "data",
+      "type": "command",
+      "functionName": "getListContents",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_replaceitemoflist",
+      "category": "data",
+      "type": "command",
+      "functionName": "replaceItemOfList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_setvariableto",
+      "category": "data",
+      "type": "command",
+      "functionName": "setVariableTo",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_showlist",
+      "category": "data",
+      "type": "command",
+      "functionName": "showList",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_showvariable",
+      "category": "data",
+      "type": "command",
+      "functionName": "showVariable",
+      "source": "primitives"
+    },
+    {
+      "opcode": "data_variable",
+      "category": "data",
+      "type": "command",
+      "functionName": "getVariable",
+      "source": "primitives"
+    },
+    {
+      "opcode": "event_broadcast",
+      "category": "events",
+      "type": "command",
+      "functionName": "broadcast",
+      "source": "primitives"
+    },
+    {
+      "opcode": "event_broadcastandwait",
+      "category": "events",
+      "type": "command",
+      "functionName": "broadcastAndWait",
+      "source": "primitives"
+    },
+    {
+      "opcode": "event_touchingobjectmenu",
+      "category": "events",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "TOUCHINGOBJECTMENU",
+          "options": [
+            {
+              "label": "SENSING_TOUCHINGOBJECT_POINTER",
+              "value": "_mouse_"
+            },
+            {
+              "label": "SENSING_TOUCHINGOBJECT_EDGE",
+              "value": "_edge_"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "event_whenbackdropswitchesto",
+      "category": "events",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "BACKDROP",
+          "options": [
+            {
+              "label": "backdrop1",
+              "value": "BACKDROP1"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "event_whenflagclicked",
+      "category": "events",
+      "type": "hat",
+      "functionName": null,
+      "source": "hats"
+    },
+    {
+      "opcode": "event_whengreaterthan",
+      "category": "events",
+      "type": "hat",
+      "functionName": "hatGreaterThanPredicate",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "WHENGREATERTHANMENU",
+          "options": [
+            {
+              "label": "EVENT_WHENGREATERTHAN_LOUDNESS",
+              "value": "LOUDNESS"
+            },
+            {
+              "label": "EVENT_WHENGREATERTHAN_TIMER",
+              "value": "TIMER"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "event_whenkeypressed",
+      "category": "events",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "KEY_OPTION",
+          "options": [
+            {
+              "label": "EVENT_WHENKEYPRESSED_SPACE",
+              "value": "space"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_UP",
+              "value": "up arrow"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_DOWN",
+              "value": "down arrow"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_RIGHT",
+              "value": "right arrow"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_LEFT",
+              "value": "left arrow"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_ANY",
+              "value": "any"
+            },
+            {
+              "label": "a",
+              "value": "a"
+            },
+            {
+              "label": "b",
+              "value": "b"
+            },
+            {
+              "label": "c",
+              "value": "c"
+            },
+            {
+              "label": "d",
+              "value": "d"
+            },
+            {
+              "label": "e",
+              "value": "e"
+            },
+            {
+              "label": "f",
+              "value": "f"
+            },
+            {
+              "label": "g",
+              "value": "g"
+            },
+            {
+              "label": "h",
+              "value": "h"
+            },
+            {
+              "label": "i",
+              "value": "i"
+            },
+            {
+              "label": "j",
+              "value": "j"
+            },
+            {
+              "label": "k",
+              "value": "k"
+            },
+            {
+              "label": "l",
+              "value": "l"
+            },
+            {
+              "label": "m",
+              "value": "m"
+            },
+            {
+              "label": "n",
+              "value": "n"
+            },
+            {
+              "label": "o",
+              "value": "o"
+            },
+            {
+              "label": "p",
+              "value": "p"
+            },
+            {
+              "label": "q",
+              "value": "q"
+            },
+            {
+              "label": "r",
+              "value": "r"
+            },
+            {
+              "label": "s",
+              "value": "s"
+            },
+            {
+              "label": "t",
+              "value": "t"
+            },
+            {
+              "label": "u",
+              "value": "u"
+            },
+            {
+              "label": "v",
+              "value": "v"
+            },
+            {
+              "label": "w",
+              "value": "w"
+            },
+            {
+              "label": "x",
+              "value": "x"
+            },
+            {
+              "label": "y",
+              "value": "y"
+            },
+            {
+              "label": "z",
+              "value": "z"
+            },
+            {
+              "label": "0",
+              "value": "0"
+            },
+            {
+              "label": "1",
+              "value": "1"
+            },
+            {
+              "label": "2",
+              "value": "2"
+            },
+            {
+              "label": "3",
+              "value": "3"
+            },
+            {
+              "label": "4",
+              "value": "4"
+            },
+            {
+              "label": "5",
+              "value": "5"
+            },
+            {
+              "label": "6",
+              "value": "6"
+            },
+            {
+              "label": "7",
+              "value": "7"
+            },
+            {
+              "label": "8",
+              "value": "8"
+            },
+            {
+              "label": "9",
+              "value": "9"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "event_whentouchingobject",
+      "category": "events",
+      "type": "hat",
+      "functionName": "touchingObject",
+      "source": "primitives"
+    },
+    {
+      "opcode": "looks_backdropnumbername",
+      "category": "looks",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "NUMBER_NAME",
+          "options": [
+            {
+              "label": "LOOKS_NUMBERNAME_NUMBER",
+              "value": "number"
+            },
+            {
+              "label": "LOOKS_NUMBERNAME_NAME",
+              "value": "name"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "looks_backdrops",
+      "category": "looks",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "BACKDROP",
+          "options": [
+            {
+              "label": "backdrop1",
+              "value": "BACKDROP1"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "looks_changeeffectby",
+      "category": "looks",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "EFFECT",
+          "options": [
+            {
+              "label": "LOOKS_EFFECT_COLOR",
+              "value": "COLOR"
+            },
+            {
+              "label": "LOOKS_EFFECT_FISHEYE",
+              "value": "FISHEYE"
+            },
+            {
+              "label": "LOOKS_EFFECT_WHIRL",
+              "value": "WHIRL"
+            },
+            {
+              "label": "LOOKS_EFFECT_PIXELATE",
+              "value": "PIXELATE"
+            },
+            {
+              "label": "LOOKS_EFFECT_MOSAIC",
+              "value": "MOSAIC"
+            },
+            {
+              "label": "LOOKS_EFFECT_BRIGHTNESS",
+              "value": "BRIGHTNESS"
+            },
+            {
+              "label": "LOOKS_EFFECT_GHOST",
+              "value": "GHOST"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "looks_costume",
+      "category": "looks",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "COSTUME",
+          "options": [
+            {
+              "label": "costume1",
+              "value": "COSTUME1"
+            },
+            {
+              "label": "costume2",
+              "value": "COSTUME2"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "looks_costumenumbername",
+      "category": "looks",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "NUMBER_NAME",
+          "options": [
+            {
+              "label": "LOOKS_NUMBERNAME_NUMBER",
+              "value": "number"
+            },
+            {
+              "label": "LOOKS_NUMBERNAME_NAME",
+              "value": "name"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "looks_goforwardbackwardlayers",
+      "category": "looks",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "FORWARD_BACKWARD",
+          "options": [
+            {
+              "label": "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD",
+              "value": "forward"
+            },
+            {
+              "label": "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD",
+              "value": "backward"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "looks_gotofrontback",
+      "category": "looks",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "FRONT_BACK",
+          "options": [
+            {
+              "label": "LOOKS_GOTOFRONTBACK_FRONT",
+              "value": "front"
+            },
+            {
+              "label": "LOOKS_GOTOFRONTBACK_BACK",
+              "value": "back"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "looks_hide",
+      "category": "looks",
+      "type": "command",
+      "functionName": "hide",
+      "source": "primitives"
+    },
+    {
+      "opcode": "looks_say",
+      "category": "looks",
+      "type": "command",
+      "functionName": "say",
+      "source": "primitives"
+    },
+    {
+      "opcode": "looks_sayforsecs",
+      "category": "looks",
+      "type": "command",
+      "functionName": "sayforsecs",
+      "source": "primitives"
+    },
+    {
+      "opcode": "looks_seteffectto",
+      "category": "looks",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "EFFECT",
+          "options": [
+            {
+              "label": "LOOKS_EFFECT_COLOR",
+              "value": "COLOR"
+            },
+            {
+              "label": "LOOKS_EFFECT_FISHEYE",
+              "value": "FISHEYE"
+            },
+            {
+              "label": "LOOKS_EFFECT_WHIRL",
+              "value": "WHIRL"
+            },
+            {
+              "label": "LOOKS_EFFECT_PIXELATE",
+              "value": "PIXELATE"
+            },
+            {
+              "label": "LOOKS_EFFECT_MOSAIC",
+              "value": "MOSAIC"
+            },
+            {
+              "label": "LOOKS_EFFECT_BRIGHTNESS",
+              "value": "BRIGHTNESS"
+            },
+            {
+              "label": "LOOKS_EFFECT_GHOST",
+              "value": "GHOST"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "looks_show",
+      "category": "looks",
+      "type": "command",
+      "functionName": "show",
+      "source": "primitives"
+    },
+    {
+      "opcode": "looks_think",
+      "category": "looks",
+      "type": "command",
+      "functionName": "think",
+      "source": "primitives"
+    },
+    {
+      "opcode": "looks_thinkforsecs",
+      "category": "looks",
+      "type": "command",
+      "functionName": "thinkforsecs",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_align_scene",
+      "category": "motion",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "ALIGNMENT",
+          "options": [
+            {
+              "label": "MOTION_ALIGNSCENE_BOTTOMLEFT",
+              "value": "bottom-left"
+            },
+            {
+              "label": "MOTION_ALIGNSCENE_BOTTOMRIGHT",
+              "value": "bottom-right"
+            },
+            {
+              "label": "MOTION_ALIGNSCENE_MIDDLE",
+              "value": "middle"
+            },
+            {
+              "label": "MOTION_ALIGNSCENE_TOPLEFT",
+              "value": "top-left"
+            },
+            {
+              "label": "MOTION_ALIGNSCENE_TOPRIGHT",
+              "value": "top-right"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "motion_changexby",
+      "category": "motion",
+      "type": "command",
+      "functionName": "changeX",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_changeyby",
+      "category": "motion",
+      "type": "command",
+      "functionName": "changeY",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_direction",
+      "category": "motion",
+      "type": "reporter",
+      "functionName": "getDirection",
+      "source": "primitives",
+      "label": "direction"
+    },
+    {
+      "opcode": "motion_glidesecstoxy",
+      "category": "motion",
+      "type": "command",
+      "functionName": "glide",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_glideto",
+      "category": "motion",
+      "type": "command",
+      "functionName": "glideTo",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_glideto_menu",
+      "category": "motion",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "TO",
+          "options": [
+            {
+              "label": "MOTION_GLIDETO_POINTER",
+              "value": "_mouse_"
+            },
+            {
+              "label": "MOTION_GLIDETO_RANDOM",
+              "value": "_random_"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "motion_goto",
+      "category": "motion",
+      "type": "command",
+      "functionName": "goTo",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_goto_menu",
+      "category": "motion",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "TO",
+          "options": [
+            {
+              "label": "MOTION_GOTO_POINTER",
+              "value": "_mouse_"
+            },
+            {
+              "label": "MOTION_GOTO_RANDOM",
+              "value": "_random_"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "motion_gotoxy",
+      "category": "motion",
+      "type": "command",
+      "functionName": "goToXY",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_ifonedgebounce",
+      "category": "motion",
+      "type": "conditional",
+      "functionName": "ifOnEdgeBounce",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_movesteps",
+      "category": "motion",
+      "type": "command",
+      "functionName": "moveSteps",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_pointindirection",
+      "category": "motion",
+      "type": "reporter",
+      "functionName": "pointInDirection",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_pointtowards",
+      "category": "motion",
+      "type": "command",
+      "functionName": "pointTowards",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_pointtowards_menu",
+      "category": "motion",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "TOWARDS",
+          "options": [
+            {
+              "label": "MOTION_POINTTOWARDS_POINTER",
+              "value": "_mouse_"
+            },
+            {
+              "label": "MOTION_POINTTOWARDS_RANDOM",
+              "value": "_random_"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "motion_setrotationstyle",
+      "category": "motion",
+      "type": "command",
+      "functionName": "setRotationStyle",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "STYLE",
+          "options": [
+            {
+              "label": "MOTION_SETROTATIONSTYLE_LEFTRIGHT",
+              "value": "left-right"
+            },
+            {
+              "label": "MOTION_SETROTATIONSTYLE_DONTROTATE",
+              "value": "don\\'t rotate"
+            },
+            {
+              "label": "MOTION_SETROTATIONSTYLE_ALLAROUND",
+              "value": "all around"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "motion_setx",
+      "category": "motion",
+      "type": "command",
+      "functionName": "setX",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_sety",
+      "category": "motion",
+      "type": "command",
+      "functionName": "setY",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_turnleft",
+      "category": "motion",
+      "type": "command",
+      "functionName": "turnLeft",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_turnright",
+      "category": "motion",
+      "type": "command",
+      "functionName": "turnRight",
+      "source": "primitives"
+    },
+    {
+      "opcode": "motion_xposition",
+      "category": "motion",
+      "type": "reporter",
+      "functionName": "getX",
+      "source": "primitives",
+      "canMonitor": true,
+      "label": "x position"
+    },
+    {
+      "opcode": "motion_yposition",
+      "category": "motion",
+      "type": "reporter",
+      "functionName": "getY",
+      "source": "primitives",
+      "label": "y position"
+    },
+    {
+      "opcode": "operator_add",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "add",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_and",
+      "category": "operators",
+      "type": "boolean",
+      "functionName": "and",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_contains",
+      "category": "operators",
+      "type": "boolean",
+      "functionName": "contains",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_divide",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "divide",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_equals",
+      "category": "operators",
+      "type": "boolean",
+      "functionName": "equals",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_gt",
+      "category": "operators",
+      "type": "boolean",
+      "functionName": "gt",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_join",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "join",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_length",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "length",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_letter_of",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "letterOf",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_lt",
+      "category": "operators",
+      "type": "boolean",
+      "functionName": "lt",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_mathop",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "mathop",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "OPERATOR",
+          "options": [
+            {
+              "label": "OPERATORS_MATHOP_ABS",
+              "value": "abs"
+            },
+            {
+              "label": "OPERATORS_MATHOP_FLOOR",
+              "value": "floor"
+            },
+            {
+              "label": "OPERATORS_MATHOP_CEILING",
+              "value": "ceiling"
+            },
+            {
+              "label": "OPERATORS_MATHOP_SQRT",
+              "value": "sqrt"
+            },
+            {
+              "label": "OPERATORS_MATHOP_SIN",
+              "value": "sin"
+            },
+            {
+              "label": "OPERATORS_MATHOP_COS",
+              "value": "cos"
+            },
+            {
+              "label": "OPERATORS_MATHOP_TAN",
+              "value": "tan"
+            },
+            {
+              "label": "OPERATORS_MATHOP_ASIN",
+              "value": "asin"
+            },
+            {
+              "label": "OPERATORS_MATHOP_ACOS",
+              "value": "acos"
+            },
+            {
+              "label": "OPERATORS_MATHOP_ATAN",
+              "value": "atan"
+            },
+            {
+              "label": "OPERATORS_MATHOP_LN",
+              "value": "ln"
+            },
+            {
+              "label": "OPERATORS_MATHOP_LOG",
+              "value": "log"
+            },
+            {
+              "label": "OPERATORS_MATHOP_EEXP",
+              "value": "e ^"
+            },
+            {
+              "label": "OPERATORS_MATHOP_10EXP",
+              "value": "10 ^"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "operator_mod",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "mod",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_multiply",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "multiply",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_not",
+      "category": "operators",
+      "type": "boolean",
+      "functionName": "not",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_or",
+      "category": "operators",
+      "type": "boolean",
+      "functionName": "or",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_random",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "random",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_round",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "round",
+      "source": "primitives"
+    },
+    {
+      "opcode": "operator_subtract",
+      "category": "operators",
+      "type": "reporter",
+      "functionName": "subtract",
+      "source": "primitives"
+    },
+    {
+      "opcode": "argument_reporter_boolean",
+      "category": "procedures",
+      "type": "command",
+      "functionName": "argumentReporterBoolean",
+      "source": "primitives"
+    },
+    {
+      "opcode": "argument_reporter_string_number",
+      "category": "procedures",
+      "type": "command",
+      "functionName": "argumentReporterStringNumber",
+      "source": "primitives"
+    },
+    {
+      "opcode": "procedures_call",
+      "category": "procedures",
+      "type": "command",
+      "functionName": "call",
+      "source": "primitives"
+    },
+    {
+      "opcode": "procedures_definition",
+      "category": "procedures",
+      "type": "command",
+      "functionName": "definition",
+      "source": "primitives"
+    },
+    {
+      "opcode": "procedures_return",
+      "category": "procedures",
+      "type": "command",
+      "functionName": "return",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_answer",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "getAnswer",
+      "source": "primitives",
+      "canMonitor": true,
+      "label": "answer"
+    },
+    {
+      "opcode": "sensing_askandwait",
+      "category": "sensing",
+      "type": "command",
+      "functionName": "askAndWait",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_coloristouchingcolor",
+      "category": "sensing",
+      "type": "boolean",
+      "functionName": "colorTouchingColor",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_current",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "current",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "CURRENTMENU",
+          "options": [
+            {
+              "label": "SENSING_CURRENT_YEAR",
+              "value": "YEAR"
+            },
+            {
+              "label": "SENSING_CURRENT_MONTH",
+              "value": "MONTH"
+            },
+            {
+              "label": "SENSING_CURRENT_DATE",
+              "value": "DATE"
+            },
+            {
+              "label": "SENSING_CURRENT_DAYOFWEEK",
+              "value": "DAYOFWEEK"
+            },
+            {
+              "label": "SENSING_CURRENT_HOUR",
+              "value": "HOUR"
+            },
+            {
+              "label": "SENSING_CURRENT_MINUTE",
+              "value": "MINUTE"
+            },
+            {
+              "label": "SENSING_CURRENT_SECOND",
+              "value": "SECOND"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sensing_dayssince2000",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "daysSince2000",
+      "source": "primitives",
+      "label": "days since 2000"
+    },
+    {
+      "opcode": "sensing_distanceto",
+      "category": "sensing",
+      "type": "command",
+      "functionName": "distanceTo",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_distancetomenu",
+      "category": "sensing",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "DISTANCETOMENU",
+          "options": [
+            {
+              "label": "SENSING_DISTANCETO_POINTER",
+              "value": "_mouse_"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sensing_keyoptions",
+      "category": "sensing",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "KEY_OPTION",
+          "options": [
+            {
+              "label": "EVENT_WHENKEYPRESSED_SPACE",
+              "value": "space"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_UP",
+              "value": "up arrow"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_DOWN",
+              "value": "down arrow"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_RIGHT",
+              "value": "right arrow"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_LEFT",
+              "value": "left arrow"
+            },
+            {
+              "label": "EVENT_WHENKEYPRESSED_ANY",
+              "value": "any"
+            },
+            {
+              "label": "a",
+              "value": "a"
+            },
+            {
+              "label": "b",
+              "value": "b"
+            },
+            {
+              "label": "c",
+              "value": "c"
+            },
+            {
+              "label": "d",
+              "value": "d"
+            },
+            {
+              "label": "e",
+              "value": "e"
+            },
+            {
+              "label": "f",
+              "value": "f"
+            },
+            {
+              "label": "g",
+              "value": "g"
+            },
+            {
+              "label": "h",
+              "value": "h"
+            },
+            {
+              "label": "i",
+              "value": "i"
+            },
+            {
+              "label": "j",
+              "value": "j"
+            },
+            {
+              "label": "k",
+              "value": "k"
+            },
+            {
+              "label": "l",
+              "value": "l"
+            },
+            {
+              "label": "m",
+              "value": "m"
+            },
+            {
+              "label": "n",
+              "value": "n"
+            },
+            {
+              "label": "o",
+              "value": "o"
+            },
+            {
+              "label": "p",
+              "value": "p"
+            },
+            {
+              "label": "q",
+              "value": "q"
+            },
+            {
+              "label": "r",
+              "value": "r"
+            },
+            {
+              "label": "s",
+              "value": "s"
+            },
+            {
+              "label": "t",
+              "value": "t"
+            },
+            {
+              "label": "u",
+              "value": "u"
+            },
+            {
+              "label": "v",
+              "value": "v"
+            },
+            {
+              "label": "w",
+              "value": "w"
+            },
+            {
+              "label": "x",
+              "value": "x"
+            },
+            {
+              "label": "y",
+              "value": "y"
+            },
+            {
+              "label": "z",
+              "value": "z"
+            },
+            {
+              "label": "0",
+              "value": "0"
+            },
+            {
+              "label": "1",
+              "value": "1"
+            },
+            {
+              "label": "2",
+              "value": "2"
+            },
+            {
+              "label": "3",
+              "value": "3"
+            },
+            {
+              "label": "4",
+              "value": "4"
+            },
+            {
+              "label": "5",
+              "value": "5"
+            },
+            {
+              "label": "6",
+              "value": "6"
+            },
+            {
+              "label": "7",
+              "value": "7"
+            },
+            {
+              "label": "8",
+              "value": "8"
+            },
+            {
+              "label": "9",
+              "value": "9"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sensing_keypressed",
+      "category": "sensing",
+      "type": "command",
+      "functionName": "getKeyPressed",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_loud",
+      "category": "sensing",
+      "type": "command",
+      "functionName": "isLoud",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_loudness",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "getLoudness",
+      "source": "primitives",
+      "label": "loudness"
+    },
+    {
+      "opcode": "sensing_mousedown",
+      "category": "sensing",
+      "type": "boolean",
+      "functionName": "getMouseDown",
+      "source": "primitives",
+      "label": "mouse down?"
+    },
+    {
+      "opcode": "sensing_mousex",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "getMouseX",
+      "source": "primitives",
+      "label": "mouse x"
+    },
+    {
+      "opcode": "sensing_mousey",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "getMouseY",
+      "source": "primitives",
+      "label": "mouse y"
+    },
+    {
+      "opcode": "sensing_of",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "getAttributeOf",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "PROPERTY",
+          "options": [
+            {
+              "label": "SENSING_OF_XPOSITION",
+              "value": "x position"
+            },
+            {
+              "label": "SENSING_OF_YPOSITION",
+              "value": "y position"
+            },
+            {
+              "label": "SENSING_OF_DIRECTION",
+              "value": "direction"
+            },
+            {
+              "label": "SENSING_OF_COSTUMENUMBER",
+              "value": "costume #"
+            },
+            {
+              "label": "SENSING_OF_COSTUMENAME",
+              "value": "costume name"
+            },
+            {
+              "label": "SENSING_OF_SIZE",
+              "value": "size"
+            },
+            {
+              "label": "SENSING_OF_VOLUME",
+              "value": "volume"
+            },
+            {
+              "label": "SENSING_OF_BACKDROPNUMBER",
+              "value": "backdrop #"
+            },
+            {
+              "label": "SENSING_OF_BACKDROPNAME",
+              "value": "backdrop name"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sensing_of_object_menu",
+      "category": "sensing",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "OBJECT",
+          "options": [
+            {
+              "label": "Sprite1",
+              "value": "Sprite1"
+            },
+            {
+              "label": "Stage",
+              "value": "_stage_"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sensing_resettimer",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "resetTimer",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_setdragmode",
+      "category": "sensing",
+      "type": "command",
+      "functionName": "setDragMode",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "DRAG_MODE",
+          "options": [
+            {
+              "label": "SENSING_SETDRAGMODE_DRAGGABLE",
+              "value": "draggable"
+            },
+            {
+              "label": "SENSING_SETDRAGMODE_NOTDRAGGABLE",
+              "value": "not draggable"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sensing_timer",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "getTimer",
+      "source": "primitives",
+      "label": "timer"
+    },
+    {
+      "opcode": "sensing_touchingcolor",
+      "category": "sensing",
+      "type": "boolean",
+      "functionName": "touchingColor",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_touchingobject",
+      "category": "sensing",
+      "type": "boolean",
+      "functionName": "touchingObject",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sensing_touchingobjectmenu",
+      "category": "sensing",
+      "type": "menu",
+      "functionName": null,
+      "source": "scratch-blocks-menu",
+      "dropdowns": [
+        {
+          "fieldName": "TOUCHINGOBJECTMENU",
+          "options": [
+            {
+              "label": "SENSING_TOUCHINGOBJECT_POINTER",
+              "value": "_mouse_"
+            },
+            {
+              "label": "SENSING_TOUCHINGOBJECT_EDGE",
+              "value": "_edge_"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sensing_username",
+      "category": "sensing",
+      "type": "reporter",
+      "functionName": "getUsername",
+      "source": "primitives",
+      "label": "username"
+    },
+    {
+      "opcode": "sound_beats_menu",
+      "category": "sound",
+      "type": "command",
+      "functionName": "beatsMenu",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sound_changeeffectby",
+      "category": "sound",
+      "type": "command",
+      "functionName": "changeEffect",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "EFFECT",
+          "options": [
+            {
+              "label": "SOUND_EFFECTS_PITCH",
+              "value": "PITCH"
+            },
+            {
+              "label": "SOUND_EFFECTS_PAN",
+              "value": "PAN"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sound_changevolumeby",
+      "category": "sound",
+      "type": "reporter",
+      "functionName": "changeVolume",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sound_cleareffects",
+      "category": "sound",
+      "type": "command",
+      "functionName": "clearEffects",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sound_effects_menu",
+      "category": "sound",
+      "type": "command",
+      "functionName": "effectsMenu",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sound_play",
+      "category": "sound",
+      "type": "command",
+      "functionName": "playSound",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sound_playuntildone",
+      "category": "sound",
+      "type": "command",
+      "functionName": "playSoundAndWait",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sound_seteffectto",
+      "category": "sound",
+      "type": "command",
+      "functionName": "setEffect",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "EFFECT",
+          "options": [
+            {
+              "label": "SOUND_EFFECTS_PITCH",
+              "value": "PITCH"
+            },
+            {
+              "label": "SOUND_EFFECTS_PAN",
+              "value": "PAN"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sound_setvolumeto",
+      "category": "sound",
+      "type": "reporter",
+      "functionName": "setVolume",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sound_sounds_menu",
+      "category": "sound",
+      "type": "command",
+      "functionName": "soundsMenu",
+      "source": "primitives",
+      "dropdowns": [
+        {
+          "fieldName": "SOUND_MENU",
+          "options": [
+            {
+              "label": "1",
+              "value": "0"
+            },
+            {
+              "label": "2",
+              "value": "1"
+            },
+            {
+              "label": "3",
+              "value": "2"
+            },
+            {
+              "label": "4",
+              "value": "3"
+            },
+            {
+              "label": "5",
+              "value": "4"
+            },
+            {
+              "label": "6",
+              "value": "5"
+            },
+            {
+              "label": "7",
+              "value": "6"
+            },
+            {
+              "label": "8",
+              "value": "7"
+            },
+            {
+              "label": "9",
+              "value": "8"
+            },
+            {
+              "label": "10",
+              "value": "9"
+            },
+            {
+              "label": "call a function",
+              "value": "function() {\n              window.alert('function called!');}"
+            }
+          ]
+        }
+      ],
+      "hasDropdown": true
+    },
+    {
+      "opcode": "sound_stopallsounds",
+      "category": "sound",
+      "type": "command",
+      "functionName": "stopAllSounds",
+      "source": "primitives"
+    },
+    {
+      "opcode": "sound_volume",
+      "category": "sound",
+      "type": "reporter",
+      "functionName": "getVolume",
+      "source": "primitives",
+      "canMonitor": true,
+      "label": "volume"
+    }
+  ],
+  "blocksByCategory": {
+    "control": [
+      {
+        "opcode": "control_all_at_once",
+        "category": "control",
+        "type": "command",
+        "functionName": "allAtOnce",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_clear_counter",
+        "category": "control",
+        "type": "command",
+        "functionName": "clearCounter",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_create_clone_of",
+        "category": "control",
+        "type": "command",
+        "functionName": "createClone",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_create_clone_of_menu",
+        "category": "control",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "CLONE_OPTION",
+            "options": [
+              {
+                "label": "CONTROL_CREATECLONEOF_MYSELF",
+                "value": "_myself_"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "control_delete_this_clone",
+        "category": "control",
+        "type": "command",
+        "functionName": "deleteClone",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_for_each",
+        "category": "control",
+        "type": "loop",
+        "functionName": "forEach",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_forever",
+        "category": "control",
+        "type": "loop",
+        "functionName": "forever",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_get_counter",
+        "category": "control",
+        "type": "command",
+        "functionName": "getCounter",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_if",
+        "category": "control",
+        "type": "conditional",
+        "functionName": "if",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_if_else",
+        "category": "control",
+        "type": "conditional",
+        "functionName": "ifElse",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_incr_counter",
+        "category": "control",
+        "type": "command",
+        "functionName": "incrCounter",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_repeat",
+        "category": "control",
+        "type": "loop",
+        "functionName": "repeat",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_repeat_until",
+        "category": "control",
+        "type": "loop",
+        "functionName": "repeatUntil",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_start_as_clone",
+        "category": "control",
+        "type": "hat",
+        "functionName": null,
+        "source": "hats"
+      },
+      {
+        "opcode": "control_stop",
+        "category": "control",
+        "type": "command",
+        "functionName": "stop",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_wait",
+        "category": "control",
+        "type": "command",
+        "functionName": "wait",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_wait_until",
+        "category": "control",
+        "type": "command",
+        "functionName": "waitUntil",
+        "source": "primitives"
+      },
+      {
+        "opcode": "control_while",
+        "category": "control",
+        "type": "loop",
+        "functionName": "repeatWhile",
+        "source": "primitives"
+      }
+    ],
+    "data": [
+      {
+        "opcode": "data_addtolist",
+        "category": "data",
+        "type": "command",
+        "functionName": "addToList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_changevariableby",
+        "category": "data",
+        "type": "command",
+        "functionName": "changeVariableBy",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_deletealloflist",
+        "category": "data",
+        "type": "command",
+        "functionName": "deleteAllOfList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_deleteoflist",
+        "category": "data",
+        "type": "command",
+        "functionName": "deleteOfList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_hidelist",
+        "category": "data",
+        "type": "command",
+        "functionName": "hideList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_hidevariable",
+        "category": "data",
+        "type": "command",
+        "functionName": "hideVariable",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_insertatlist",
+        "category": "data",
+        "type": "command",
+        "functionName": "insertAtList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_itemnumoflist",
+        "category": "data",
+        "type": "command",
+        "functionName": "getItemNumOfList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_itemoflist",
+        "category": "data",
+        "type": "command",
+        "functionName": "getItemOfList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_lengthoflist",
+        "category": "data",
+        "type": "command",
+        "functionName": "lengthOfList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_listcontainsitem",
+        "category": "data",
+        "type": "command",
+        "functionName": "listContainsItem",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_listcontents",
+        "category": "data",
+        "type": "command",
+        "functionName": "getListContents",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_replaceitemoflist",
+        "category": "data",
+        "type": "command",
+        "functionName": "replaceItemOfList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_setvariableto",
+        "category": "data",
+        "type": "command",
+        "functionName": "setVariableTo",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_showlist",
+        "category": "data",
+        "type": "command",
+        "functionName": "showList",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_showvariable",
+        "category": "data",
+        "type": "command",
+        "functionName": "showVariable",
+        "source": "primitives"
+      },
+      {
+        "opcode": "data_variable",
+        "category": "data",
+        "type": "command",
+        "functionName": "getVariable",
+        "source": "primitives"
+      }
+    ],
+    "events": [
+      {
+        "opcode": "event_broadcast",
+        "category": "events",
+        "type": "command",
+        "functionName": "broadcast",
+        "source": "primitives"
+      },
+      {
+        "opcode": "event_broadcastandwait",
+        "category": "events",
+        "type": "command",
+        "functionName": "broadcastAndWait",
+        "source": "primitives"
+      },
+      {
+        "opcode": "event_touchingobjectmenu",
+        "category": "events",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "TOUCHINGOBJECTMENU",
+            "options": [
+              {
+                "label": "SENSING_TOUCHINGOBJECT_POINTER",
+                "value": "_mouse_"
+              },
+              {
+                "label": "SENSING_TOUCHINGOBJECT_EDGE",
+                "value": "_edge_"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "event_whenbackdropswitchesto",
+        "category": "events",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "BACKDROP",
+            "options": [
+              {
+                "label": "backdrop1",
+                "value": "BACKDROP1"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "event_whenflagclicked",
+        "category": "events",
+        "type": "hat",
+        "functionName": null,
+        "source": "hats"
+      },
+      {
+        "opcode": "event_whengreaterthan",
+        "category": "events",
+        "type": "hat",
+        "functionName": "hatGreaterThanPredicate",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "WHENGREATERTHANMENU",
+            "options": [
+              {
+                "label": "EVENT_WHENGREATERTHAN_LOUDNESS",
+                "value": "LOUDNESS"
+              },
+              {
+                "label": "EVENT_WHENGREATERTHAN_TIMER",
+                "value": "TIMER"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "event_whenkeypressed",
+        "category": "events",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "KEY_OPTION",
+            "options": [
+              {
+                "label": "EVENT_WHENKEYPRESSED_SPACE",
+                "value": "space"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_UP",
+                "value": "up arrow"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_DOWN",
+                "value": "down arrow"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_RIGHT",
+                "value": "right arrow"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_LEFT",
+                "value": "left arrow"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_ANY",
+                "value": "any"
+              },
+              {
+                "label": "a",
+                "value": "a"
+              },
+              {
+                "label": "b",
+                "value": "b"
+              },
+              {
+                "label": "c",
+                "value": "c"
+              },
+              {
+                "label": "d",
+                "value": "d"
+              },
+              {
+                "label": "e",
+                "value": "e"
+              },
+              {
+                "label": "f",
+                "value": "f"
+              },
+              {
+                "label": "g",
+                "value": "g"
+              },
+              {
+                "label": "h",
+                "value": "h"
+              },
+              {
+                "label": "i",
+                "value": "i"
+              },
+              {
+                "label": "j",
+                "value": "j"
+              },
+              {
+                "label": "k",
+                "value": "k"
+              },
+              {
+                "label": "l",
+                "value": "l"
+              },
+              {
+                "label": "m",
+                "value": "m"
+              },
+              {
+                "label": "n",
+                "value": "n"
+              },
+              {
+                "label": "o",
+                "value": "o"
+              },
+              {
+                "label": "p",
+                "value": "p"
+              },
+              {
+                "label": "q",
+                "value": "q"
+              },
+              {
+                "label": "r",
+                "value": "r"
+              },
+              {
+                "label": "s",
+                "value": "s"
+              },
+              {
+                "label": "t",
+                "value": "t"
+              },
+              {
+                "label": "u",
+                "value": "u"
+              },
+              {
+                "label": "v",
+                "value": "v"
+              },
+              {
+                "label": "w",
+                "value": "w"
+              },
+              {
+                "label": "x",
+                "value": "x"
+              },
+              {
+                "label": "y",
+                "value": "y"
+              },
+              {
+                "label": "z",
+                "value": "z"
+              },
+              {
+                "label": "0",
+                "value": "0"
+              },
+              {
+                "label": "1",
+                "value": "1"
+              },
+              {
+                "label": "2",
+                "value": "2"
+              },
+              {
+                "label": "3",
+                "value": "3"
+              },
+              {
+                "label": "4",
+                "value": "4"
+              },
+              {
+                "label": "5",
+                "value": "5"
+              },
+              {
+                "label": "6",
+                "value": "6"
+              },
+              {
+                "label": "7",
+                "value": "7"
+              },
+              {
+                "label": "8",
+                "value": "8"
+              },
+              {
+                "label": "9",
+                "value": "9"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "event_whentouchingobject",
+        "category": "events",
+        "type": "hat",
+        "functionName": "touchingObject",
+        "source": "primitives"
+      }
+    ],
+    "looks": [
+      {
+        "opcode": "looks_backdropnumbername",
+        "category": "looks",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "NUMBER_NAME",
+            "options": [
+              {
+                "label": "LOOKS_NUMBERNAME_NUMBER",
+                "value": "number"
+              },
+              {
+                "label": "LOOKS_NUMBERNAME_NAME",
+                "value": "name"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "looks_backdrops",
+        "category": "looks",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "BACKDROP",
+            "options": [
+              {
+                "label": "backdrop1",
+                "value": "BACKDROP1"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "looks_changeeffectby",
+        "category": "looks",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "EFFECT",
+            "options": [
+              {
+                "label": "LOOKS_EFFECT_COLOR",
+                "value": "COLOR"
+              },
+              {
+                "label": "LOOKS_EFFECT_FISHEYE",
+                "value": "FISHEYE"
+              },
+              {
+                "label": "LOOKS_EFFECT_WHIRL",
+                "value": "WHIRL"
+              },
+              {
+                "label": "LOOKS_EFFECT_PIXELATE",
+                "value": "PIXELATE"
+              },
+              {
+                "label": "LOOKS_EFFECT_MOSAIC",
+                "value": "MOSAIC"
+              },
+              {
+                "label": "LOOKS_EFFECT_BRIGHTNESS",
+                "value": "BRIGHTNESS"
+              },
+              {
+                "label": "LOOKS_EFFECT_GHOST",
+                "value": "GHOST"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "looks_costume",
+        "category": "looks",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "COSTUME",
+            "options": [
+              {
+                "label": "costume1",
+                "value": "COSTUME1"
+              },
+              {
+                "label": "costume2",
+                "value": "COSTUME2"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "looks_costumenumbername",
+        "category": "looks",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "NUMBER_NAME",
+            "options": [
+              {
+                "label": "LOOKS_NUMBERNAME_NUMBER",
+                "value": "number"
+              },
+              {
+                "label": "LOOKS_NUMBERNAME_NAME",
+                "value": "name"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "looks_goforwardbackwardlayers",
+        "category": "looks",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "FORWARD_BACKWARD",
+            "options": [
+              {
+                "label": "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD",
+                "value": "forward"
+              },
+              {
+                "label": "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD",
+                "value": "backward"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "looks_gotofrontback",
+        "category": "looks",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "FRONT_BACK",
+            "options": [
+              {
+                "label": "LOOKS_GOTOFRONTBACK_FRONT",
+                "value": "front"
+              },
+              {
+                "label": "LOOKS_GOTOFRONTBACK_BACK",
+                "value": "back"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "looks_hide",
+        "category": "looks",
+        "type": "command",
+        "functionName": "hide",
+        "source": "primitives"
+      },
+      {
+        "opcode": "looks_say",
+        "category": "looks",
+        "type": "command",
+        "functionName": "say",
+        "source": "primitives"
+      },
+      {
+        "opcode": "looks_sayforsecs",
+        "category": "looks",
+        "type": "command",
+        "functionName": "sayforsecs",
+        "source": "primitives"
+      },
+      {
+        "opcode": "looks_seteffectto",
+        "category": "looks",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "EFFECT",
+            "options": [
+              {
+                "label": "LOOKS_EFFECT_COLOR",
+                "value": "COLOR"
+              },
+              {
+                "label": "LOOKS_EFFECT_FISHEYE",
+                "value": "FISHEYE"
+              },
+              {
+                "label": "LOOKS_EFFECT_WHIRL",
+                "value": "WHIRL"
+              },
+              {
+                "label": "LOOKS_EFFECT_PIXELATE",
+                "value": "PIXELATE"
+              },
+              {
+                "label": "LOOKS_EFFECT_MOSAIC",
+                "value": "MOSAIC"
+              },
+              {
+                "label": "LOOKS_EFFECT_BRIGHTNESS",
+                "value": "BRIGHTNESS"
+              },
+              {
+                "label": "LOOKS_EFFECT_GHOST",
+                "value": "GHOST"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "looks_show",
+        "category": "looks",
+        "type": "command",
+        "functionName": "show",
+        "source": "primitives"
+      },
+      {
+        "opcode": "looks_think",
+        "category": "looks",
+        "type": "command",
+        "functionName": "think",
+        "source": "primitives"
+      },
+      {
+        "opcode": "looks_thinkforsecs",
+        "category": "looks",
+        "type": "command",
+        "functionName": "thinkforsecs",
+        "source": "primitives"
+      }
+    ],
+    "motion": [
+      {
+        "opcode": "motion_align_scene",
+        "category": "motion",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "ALIGNMENT",
+            "options": [
+              {
+                "label": "MOTION_ALIGNSCENE_BOTTOMLEFT",
+                "value": "bottom-left"
+              },
+              {
+                "label": "MOTION_ALIGNSCENE_BOTTOMRIGHT",
+                "value": "bottom-right"
+              },
+              {
+                "label": "MOTION_ALIGNSCENE_MIDDLE",
+                "value": "middle"
+              },
+              {
+                "label": "MOTION_ALIGNSCENE_TOPLEFT",
+                "value": "top-left"
+              },
+              {
+                "label": "MOTION_ALIGNSCENE_TOPRIGHT",
+                "value": "top-right"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "motion_changexby",
+        "category": "motion",
+        "type": "command",
+        "functionName": "changeX",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_changeyby",
+        "category": "motion",
+        "type": "command",
+        "functionName": "changeY",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_direction",
+        "category": "motion",
+        "type": "reporter",
+        "functionName": "getDirection",
+        "source": "primitives",
+        "label": "direction"
+      },
+      {
+        "opcode": "motion_glidesecstoxy",
+        "category": "motion",
+        "type": "command",
+        "functionName": "glide",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_glideto",
+        "category": "motion",
+        "type": "command",
+        "functionName": "glideTo",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_glideto_menu",
+        "category": "motion",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "TO",
+            "options": [
+              {
+                "label": "MOTION_GLIDETO_POINTER",
+                "value": "_mouse_"
+              },
+              {
+                "label": "MOTION_GLIDETO_RANDOM",
+                "value": "_random_"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "motion_goto",
+        "category": "motion",
+        "type": "command",
+        "functionName": "goTo",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_goto_menu",
+        "category": "motion",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "TO",
+            "options": [
+              {
+                "label": "MOTION_GOTO_POINTER",
+                "value": "_mouse_"
+              },
+              {
+                "label": "MOTION_GOTO_RANDOM",
+                "value": "_random_"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "motion_gotoxy",
+        "category": "motion",
+        "type": "command",
+        "functionName": "goToXY",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_ifonedgebounce",
+        "category": "motion",
+        "type": "conditional",
+        "functionName": "ifOnEdgeBounce",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_movesteps",
+        "category": "motion",
+        "type": "command",
+        "functionName": "moveSteps",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_pointindirection",
+        "category": "motion",
+        "type": "reporter",
+        "functionName": "pointInDirection",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_pointtowards",
+        "category": "motion",
+        "type": "command",
+        "functionName": "pointTowards",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_pointtowards_menu",
+        "category": "motion",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "TOWARDS",
+            "options": [
+              {
+                "label": "MOTION_POINTTOWARDS_POINTER",
+                "value": "_mouse_"
+              },
+              {
+                "label": "MOTION_POINTTOWARDS_RANDOM",
+                "value": "_random_"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "motion_setrotationstyle",
+        "category": "motion",
+        "type": "command",
+        "functionName": "setRotationStyle",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "STYLE",
+            "options": [
+              {
+                "label": "MOTION_SETROTATIONSTYLE_LEFTRIGHT",
+                "value": "left-right"
+              },
+              {
+                "label": "MOTION_SETROTATIONSTYLE_DONTROTATE",
+                "value": "don\\'t rotate"
+              },
+              {
+                "label": "MOTION_SETROTATIONSTYLE_ALLAROUND",
+                "value": "all around"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "motion_setx",
+        "category": "motion",
+        "type": "command",
+        "functionName": "setX",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_sety",
+        "category": "motion",
+        "type": "command",
+        "functionName": "setY",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_turnleft",
+        "category": "motion",
+        "type": "command",
+        "functionName": "turnLeft",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_turnright",
+        "category": "motion",
+        "type": "command",
+        "functionName": "turnRight",
+        "source": "primitives"
+      },
+      {
+        "opcode": "motion_xposition",
+        "category": "motion",
+        "type": "reporter",
+        "functionName": "getX",
+        "source": "primitives",
+        "canMonitor": true,
+        "label": "x position"
+      },
+      {
+        "opcode": "motion_yposition",
+        "category": "motion",
+        "type": "reporter",
+        "functionName": "getY",
+        "source": "primitives",
+        "label": "y position"
+      }
+    ],
+    "operators": [
+      {
+        "opcode": "operator_add",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "add",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_and",
+        "category": "operators",
+        "type": "boolean",
+        "functionName": "and",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_contains",
+        "category": "operators",
+        "type": "boolean",
+        "functionName": "contains",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_divide",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "divide",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_equals",
+        "category": "operators",
+        "type": "boolean",
+        "functionName": "equals",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_gt",
+        "category": "operators",
+        "type": "boolean",
+        "functionName": "gt",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_join",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "join",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_length",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "length",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_letter_of",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "letterOf",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_lt",
+        "category": "operators",
+        "type": "boolean",
+        "functionName": "lt",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_mathop",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "mathop",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "OPERATOR",
+            "options": [
+              {
+                "label": "OPERATORS_MATHOP_ABS",
+                "value": "abs"
+              },
+              {
+                "label": "OPERATORS_MATHOP_FLOOR",
+                "value": "floor"
+              },
+              {
+                "label": "OPERATORS_MATHOP_CEILING",
+                "value": "ceiling"
+              },
+              {
+                "label": "OPERATORS_MATHOP_SQRT",
+                "value": "sqrt"
+              },
+              {
+                "label": "OPERATORS_MATHOP_SIN",
+                "value": "sin"
+              },
+              {
+                "label": "OPERATORS_MATHOP_COS",
+                "value": "cos"
+              },
+              {
+                "label": "OPERATORS_MATHOP_TAN",
+                "value": "tan"
+              },
+              {
+                "label": "OPERATORS_MATHOP_ASIN",
+                "value": "asin"
+              },
+              {
+                "label": "OPERATORS_MATHOP_ACOS",
+                "value": "acos"
+              },
+              {
+                "label": "OPERATORS_MATHOP_ATAN",
+                "value": "atan"
+              },
+              {
+                "label": "OPERATORS_MATHOP_LN",
+                "value": "ln"
+              },
+              {
+                "label": "OPERATORS_MATHOP_LOG",
+                "value": "log"
+              },
+              {
+                "label": "OPERATORS_MATHOP_EEXP",
+                "value": "e ^"
+              },
+              {
+                "label": "OPERATORS_MATHOP_10EXP",
+                "value": "10 ^"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "operator_mod",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "mod",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_multiply",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "multiply",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_not",
+        "category": "operators",
+        "type": "boolean",
+        "functionName": "not",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_or",
+        "category": "operators",
+        "type": "boolean",
+        "functionName": "or",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_random",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "random",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_round",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "round",
+        "source": "primitives"
+      },
+      {
+        "opcode": "operator_subtract",
+        "category": "operators",
+        "type": "reporter",
+        "functionName": "subtract",
+        "source": "primitives"
+      }
+    ],
+    "procedures": [
+      {
+        "opcode": "argument_reporter_boolean",
+        "category": "procedures",
+        "type": "command",
+        "functionName": "argumentReporterBoolean",
+        "source": "primitives"
+      },
+      {
+        "opcode": "argument_reporter_string_number",
+        "category": "procedures",
+        "type": "command",
+        "functionName": "argumentReporterStringNumber",
+        "source": "primitives"
+      },
+      {
+        "opcode": "procedures_call",
+        "category": "procedures",
+        "type": "command",
+        "functionName": "call",
+        "source": "primitives"
+      },
+      {
+        "opcode": "procedures_definition",
+        "category": "procedures",
+        "type": "command",
+        "functionName": "definition",
+        "source": "primitives"
+      },
+      {
+        "opcode": "procedures_return",
+        "category": "procedures",
+        "type": "command",
+        "functionName": "return",
+        "source": "primitives"
+      }
+    ],
+    "sensing": [
+      {
+        "opcode": "sensing_answer",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "getAnswer",
+        "source": "primitives",
+        "canMonitor": true,
+        "label": "answer"
+      },
+      {
+        "opcode": "sensing_askandwait",
+        "category": "sensing",
+        "type": "command",
+        "functionName": "askAndWait",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sensing_coloristouchingcolor",
+        "category": "sensing",
+        "type": "boolean",
+        "functionName": "colorTouchingColor",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sensing_current",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "current",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "CURRENTMENU",
+            "options": [
+              {
+                "label": "SENSING_CURRENT_YEAR",
+                "value": "YEAR"
+              },
+              {
+                "label": "SENSING_CURRENT_MONTH",
+                "value": "MONTH"
+              },
+              {
+                "label": "SENSING_CURRENT_DATE",
+                "value": "DATE"
+              },
+              {
+                "label": "SENSING_CURRENT_DAYOFWEEK",
+                "value": "DAYOFWEEK"
+              },
+              {
+                "label": "SENSING_CURRENT_HOUR",
+                "value": "HOUR"
+              },
+              {
+                "label": "SENSING_CURRENT_MINUTE",
+                "value": "MINUTE"
+              },
+              {
+                "label": "SENSING_CURRENT_SECOND",
+                "value": "SECOND"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sensing_dayssince2000",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "daysSince2000",
+        "source": "primitives",
+        "label": "days since 2000"
+      },
+      {
+        "opcode": "sensing_distanceto",
+        "category": "sensing",
+        "type": "command",
+        "functionName": "distanceTo",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sensing_distancetomenu",
+        "category": "sensing",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "DISTANCETOMENU",
+            "options": [
+              {
+                "label": "SENSING_DISTANCETO_POINTER",
+                "value": "_mouse_"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sensing_keyoptions",
+        "category": "sensing",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "KEY_OPTION",
+            "options": [
+              {
+                "label": "EVENT_WHENKEYPRESSED_SPACE",
+                "value": "space"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_UP",
+                "value": "up arrow"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_DOWN",
+                "value": "down arrow"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_RIGHT",
+                "value": "right arrow"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_LEFT",
+                "value": "left arrow"
+              },
+              {
+                "label": "EVENT_WHENKEYPRESSED_ANY",
+                "value": "any"
+              },
+              {
+                "label": "a",
+                "value": "a"
+              },
+              {
+                "label": "b",
+                "value": "b"
+              },
+              {
+                "label": "c",
+                "value": "c"
+              },
+              {
+                "label": "d",
+                "value": "d"
+              },
+              {
+                "label": "e",
+                "value": "e"
+              },
+              {
+                "label": "f",
+                "value": "f"
+              },
+              {
+                "label": "g",
+                "value": "g"
+              },
+              {
+                "label": "h",
+                "value": "h"
+              },
+              {
+                "label": "i",
+                "value": "i"
+              },
+              {
+                "label": "j",
+                "value": "j"
+              },
+              {
+                "label": "k",
+                "value": "k"
+              },
+              {
+                "label": "l",
+                "value": "l"
+              },
+              {
+                "label": "m",
+                "value": "m"
+              },
+              {
+                "label": "n",
+                "value": "n"
+              },
+              {
+                "label": "o",
+                "value": "o"
+              },
+              {
+                "label": "p",
+                "value": "p"
+              },
+              {
+                "label": "q",
+                "value": "q"
+              },
+              {
+                "label": "r",
+                "value": "r"
+              },
+              {
+                "label": "s",
+                "value": "s"
+              },
+              {
+                "label": "t",
+                "value": "t"
+              },
+              {
+                "label": "u",
+                "value": "u"
+              },
+              {
+                "label": "v",
+                "value": "v"
+              },
+              {
+                "label": "w",
+                "value": "w"
+              },
+              {
+                "label": "x",
+                "value": "x"
+              },
+              {
+                "label": "y",
+                "value": "y"
+              },
+              {
+                "label": "z",
+                "value": "z"
+              },
+              {
+                "label": "0",
+                "value": "0"
+              },
+              {
+                "label": "1",
+                "value": "1"
+              },
+              {
+                "label": "2",
+                "value": "2"
+              },
+              {
+                "label": "3",
+                "value": "3"
+              },
+              {
+                "label": "4",
+                "value": "4"
+              },
+              {
+                "label": "5",
+                "value": "5"
+              },
+              {
+                "label": "6",
+                "value": "6"
+              },
+              {
+                "label": "7",
+                "value": "7"
+              },
+              {
+                "label": "8",
+                "value": "8"
+              },
+              {
+                "label": "9",
+                "value": "9"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sensing_keypressed",
+        "category": "sensing",
+        "type": "command",
+        "functionName": "getKeyPressed",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sensing_loud",
+        "category": "sensing",
+        "type": "command",
+        "functionName": "isLoud",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sensing_loudness",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "getLoudness",
+        "source": "primitives",
+        "label": "loudness"
+      },
+      {
+        "opcode": "sensing_mousedown",
+        "category": "sensing",
+        "type": "boolean",
+        "functionName": "getMouseDown",
+        "source": "primitives",
+        "label": "mouse down?"
+      },
+      {
+        "opcode": "sensing_mousex",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "getMouseX",
+        "source": "primitives",
+        "label": "mouse x"
+      },
+      {
+        "opcode": "sensing_mousey",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "getMouseY",
+        "source": "primitives",
+        "label": "mouse y"
+      },
+      {
+        "opcode": "sensing_of",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "getAttributeOf",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "PROPERTY",
+            "options": [
+              {
+                "label": "SENSING_OF_XPOSITION",
+                "value": "x position"
+              },
+              {
+                "label": "SENSING_OF_YPOSITION",
+                "value": "y position"
+              },
+              {
+                "label": "SENSING_OF_DIRECTION",
+                "value": "direction"
+              },
+              {
+                "label": "SENSING_OF_COSTUMENUMBER",
+                "value": "costume #"
+              },
+              {
+                "label": "SENSING_OF_COSTUMENAME",
+                "value": "costume name"
+              },
+              {
+                "label": "SENSING_OF_SIZE",
+                "value": "size"
+              },
+              {
+                "label": "SENSING_OF_VOLUME",
+                "value": "volume"
+              },
+              {
+                "label": "SENSING_OF_BACKDROPNUMBER",
+                "value": "backdrop #"
+              },
+              {
+                "label": "SENSING_OF_BACKDROPNAME",
+                "value": "backdrop name"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sensing_of_object_menu",
+        "category": "sensing",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "OBJECT",
+            "options": [
+              {
+                "label": "Sprite1",
+                "value": "Sprite1"
+              },
+              {
+                "label": "Stage",
+                "value": "_stage_"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sensing_resettimer",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "resetTimer",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sensing_setdragmode",
+        "category": "sensing",
+        "type": "command",
+        "functionName": "setDragMode",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "DRAG_MODE",
+            "options": [
+              {
+                "label": "SENSING_SETDRAGMODE_DRAGGABLE",
+                "value": "draggable"
+              },
+              {
+                "label": "SENSING_SETDRAGMODE_NOTDRAGGABLE",
+                "value": "not draggable"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sensing_timer",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "getTimer",
+        "source": "primitives",
+        "label": "timer"
+      },
+      {
+        "opcode": "sensing_touchingcolor",
+        "category": "sensing",
+        "type": "boolean",
+        "functionName": "touchingColor",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sensing_touchingobject",
+        "category": "sensing",
+        "type": "boolean",
+        "functionName": "touchingObject",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sensing_touchingobjectmenu",
+        "category": "sensing",
+        "type": "menu",
+        "functionName": null,
+        "source": "scratch-blocks-menu",
+        "dropdowns": [
+          {
+            "fieldName": "TOUCHINGOBJECTMENU",
+            "options": [
+              {
+                "label": "SENSING_TOUCHINGOBJECT_POINTER",
+                "value": "_mouse_"
+              },
+              {
+                "label": "SENSING_TOUCHINGOBJECT_EDGE",
+                "value": "_edge_"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sensing_username",
+        "category": "sensing",
+        "type": "reporter",
+        "functionName": "getUsername",
+        "source": "primitives",
+        "label": "username"
+      }
+    ],
+    "sound": [
+      {
+        "opcode": "sound_beats_menu",
+        "category": "sound",
+        "type": "command",
+        "functionName": "beatsMenu",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sound_changeeffectby",
+        "category": "sound",
+        "type": "command",
+        "functionName": "changeEffect",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "EFFECT",
+            "options": [
+              {
+                "label": "SOUND_EFFECTS_PITCH",
+                "value": "PITCH"
+              },
+              {
+                "label": "SOUND_EFFECTS_PAN",
+                "value": "PAN"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sound_changevolumeby",
+        "category": "sound",
+        "type": "reporter",
+        "functionName": "changeVolume",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sound_cleareffects",
+        "category": "sound",
+        "type": "command",
+        "functionName": "clearEffects",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sound_effects_menu",
+        "category": "sound",
+        "type": "command",
+        "functionName": "effectsMenu",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sound_play",
+        "category": "sound",
+        "type": "command",
+        "functionName": "playSound",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sound_playuntildone",
+        "category": "sound",
+        "type": "command",
+        "functionName": "playSoundAndWait",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sound_seteffectto",
+        "category": "sound",
+        "type": "command",
+        "functionName": "setEffect",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "EFFECT",
+            "options": [
+              {
+                "label": "SOUND_EFFECTS_PITCH",
+                "value": "PITCH"
+              },
+              {
+                "label": "SOUND_EFFECTS_PAN",
+                "value": "PAN"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sound_setvolumeto",
+        "category": "sound",
+        "type": "reporter",
+        "functionName": "setVolume",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sound_sounds_menu",
+        "category": "sound",
+        "type": "command",
+        "functionName": "soundsMenu",
+        "source": "primitives",
+        "dropdowns": [
+          {
+            "fieldName": "SOUND_MENU",
+            "options": [
+              {
+                "label": "1",
+                "value": "0"
+              },
+              {
+                "label": "2",
+                "value": "1"
+              },
+              {
+                "label": "3",
+                "value": "2"
+              },
+              {
+                "label": "4",
+                "value": "3"
+              },
+              {
+                "label": "5",
+                "value": "4"
+              },
+              {
+                "label": "6",
+                "value": "5"
+              },
+              {
+                "label": "7",
+                "value": "6"
+              },
+              {
+                "label": "8",
+                "value": "7"
+              },
+              {
+                "label": "9",
+                "value": "8"
+              },
+              {
+                "label": "10",
+                "value": "9"
+              },
+              {
+                "label": "call a function",
+                "value": "function() {\n              window.alert('function called!');}"
+              }
+            ]
+          }
+        ],
+        "hasDropdown": true
+      },
+      {
+        "opcode": "sound_stopallsounds",
+        "category": "sound",
+        "type": "command",
+        "functionName": "stopAllSounds",
+        "source": "primitives"
+      },
+      {
+        "opcode": "sound_volume",
+        "category": "sound",
+        "type": "reporter",
+        "functionName": "getVolume",
+        "source": "primitives",
+        "canMonitor": true,
+        "label": "volume"
+      }
+    ]
+  }
+}

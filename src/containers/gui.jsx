@@ -93,9 +93,9 @@ class GUI extends React.Component {
         }
 
         // Handle GLITTER_APPLY_PATCH from GlitterCode (for applying agent changes)
-        if (event.data?.type === 'GLITTER_APPLY_PATCH') {
+        if (event.data?.type === 'APPLY_PATCH') {
             const requestId = event.data.requestId;
-            console.log('[GlitterEditor] GLITTER_APPLY_PATCH received, ID:', requestId);
+            console.log('[GlitterEditor] APPLY_PATCH received, ID:', requestId);
             const patch = event.data.patch;
             console.log('[GlitterEditor] Patch data:', patch);
             this.applyPatch(patch);
@@ -106,6 +106,28 @@ class GUI extends React.Component {
                     requestId: requestId,
                 }, event.origin);
                 console.log('[GlitterEditor] Sent APPLY_PATCH_RESPONSE');
+            }
+        }
+
+        if (event.data?.type === 'APPLY_JSON_PATCH') {
+            const requestId = event.data.requestId;
+            console.log('[GlitterEditor] APPLY_JSON_PATCH received, ID:', requestId);
+            const patch = event.data.patch;
+            console.log('[GlitterEditor] JSON Patch data:', patch);
+
+            if (patch && patch.action === 'applyJSONPatch' && patch.spriteName && patch.operations) {
+                this.applyJSONPatch(patch.spriteName, patch.operations);
+            } else {
+                console.error('[GlitterEditor] Invalid patch format. Expected: { action: "applyJSONPatch", spriteName: string, operations: array }');
+            }
+
+            // Send response back to parent
+            if (event.source) {
+                event.source.postMessage({
+                    type: 'APPLY_JSON_PATCH_RESPONSE',
+                    requestId: requestId,
+                }, event.origin);
+                console.log('[GlitterEditor] Sent APPLY_JSON_PATCH_RESPONSE');
             }
         }
 
@@ -231,6 +253,270 @@ class GUI extends React.Component {
             console.error('Error applying patch:', error);
         }
     }
+
+
+    applyJSONPatch (spriteName, patchOperations) {
+        // Apply RFC 6902 JSON Patch operations to a specific sprite's blocks
+        try {
+            if (!this.props.vm) {
+                console.error('VM not available for patching');
+                return;
+            }
+
+            console.log(`Applying RFC 6902 JSON Patch to sprite "${spriteName}":`, patchOperations);
+
+            // Ensure patch is an array
+            if (!Array.isArray(patchOperations)) {
+                console.error('Invalid patch format. Expected an array of operations');
+                return;
+            }
+
+            // Find the target sprite in the VM runtime
+            const runtime = this.props.vm.runtime;
+            const targetSprite = runtime.targets.find(target =>
+                !target.isStage && target.sprite.name === spriteName
+            );
+
+            if (!targetSprite) {
+                console.error(`Sprite "${spriteName}" not found in project`);
+                return;
+            }
+
+            console.log(`Found target sprite: ${targetSprite.sprite.name}`);
+            console.log(`Current blocks:`, targetSprite.blocks);
+            console.log(`Current block count:`, Object.keys(targetSprite.blocks._blocks).length);
+
+            // Apply each operation using the proper Blocks API methods
+            for (const operation of patchOperations) {
+                console.log('Applying operation:', operation);
+                this.applyBlockOperation(targetSprite.blocks, operation);
+            }
+
+            console.log(`Blocks after patching:`, targetSprite.blocks._blocks);
+            console.log(`Block count after patching:`, Object.keys(targetSprite.blocks._blocks).length);
+
+            // Switch to the updated sprite to see the changes
+            const spriteIndex = this.props.vm.runtime.targets.indexOf(targetSprite);
+            console.log(`Setting editing target to sprite index: ${spriteIndex}`);
+            this.props.vm.setEditingTarget(targetSprite.id);
+
+            // Refresh the workspace - emit updates to trigger UI refresh
+            console.log(`Emitting targets update...`);
+            this.props.vm.emitTargetsUpdate();
+            console.log(`Emitting workspace update...`);
+            this.props.vm.emitWorkspaceUpdate();
+            console.log(`Requesting blocks update from workspace...`);
+            this.props.vm.runtime.requestBlocksUpdate();
+
+            console.log(`Successfully applied JSON patch to sprite "${spriteName}"`);
+
+        } catch (error) {
+            console.error('Error applying JSON patch:', error);
+        }
+    }
+
+    applyBlockOperation (blocks, operation) {
+        // Apply a single RFC 6902 operation using the Blocks API
+        const {op, path, value} = operation;
+        const {deserializeBlocks} = require('scratch-vm/src/serialization/sb3');
+
+        if (!op || !path) {
+            throw new Error('Operation must have "op" and "path" properties');
+        }
+
+        const pathParts = this.parsePath(path);
+        console.log(`Block operation: ${op}, Path: ${path}, Parts:`, pathParts);
+
+        // The first part of the path should be the block ID
+        const blockId = pathParts[0];
+
+        if (!blockId) {
+            throw new Error('Path must include a block ID');
+        }
+
+        switch (op) {
+            case 'add':
+                if (pathParts.length === 1) {
+                    // Adding a new block: path is just "/blockId"
+                    // Value should be the full block data
+                    // Deserialize the block first (converts compressed SB3 format to full format)
+                    const blocksToDeserialize = {[blockId]: {...value}};
+                    deserializeBlocks(blocksToDeserialize);
+                    const blockData = {...blocksToDeserialize[blockId], id: blockId};
+                    console.log(`Creating block ${blockId}:`, blockData);
+                    blocks.createBlock(blockData);
+                } else {
+                    // Modifying a property within an existing block
+                    // Fall back to direct object manipulation for nested properties
+                    this.applyOperation(blocks._blocks, operation);
+                }
+                break;
+
+            case 'remove':
+                if (pathParts.length === 1) {
+                    // Removing an entire block: path is just "/blockId"
+                    console.log(`Deleting block ${blockId}`);
+                    blocks.deleteBlock(blockId);
+                } else {
+                    // Removing a property within a block
+                    this.applyOperation(blocks._blocks, operation);
+                }
+                break;
+
+            case 'replace':
+                if (pathParts.length === 1) {
+                    // Replacing an entire block: delete then create
+                    // Deserialize the block first (converts compressed SB3 format to full format)
+                    const blocksToDeserialize = {[blockId]: {...value}};
+                    deserializeBlocks(blocksToDeserialize);
+                    const blockData = {...blocksToDeserialize[blockId], id: blockId};
+                    console.log(`Replacing block ${blockId}:`, blockData);
+                    blocks.deleteBlock(blockId);
+                    blocks.createBlock(blockData);
+                } else {
+                    // Replacing a property within a block
+                    this.applyOperation(blocks._blocks, operation);
+                }
+                break;
+
+            case 'move':
+            case 'copy':
+            case 'test':
+                // For these operations, fall back to direct object manipulation
+                this.applyOperation(blocks._blocks, operation);
+                break;
+
+            default:
+                throw new Error(`Unknown operation: ${op}`);
+        }
+    }
+
+    applyOperation (obj, operation) {
+        // Apply a single RFC 6902 operation to the object
+        const {op, path, value, from} = operation;
+
+        if (!op || !path) {
+            throw new Error('Operation must have "op" and "path" properties');
+        }
+
+        const pathParts = this.parsePath(path);
+        console.log(`Operation: ${op}, Path: ${path}, Parts:`, pathParts);
+
+        switch (op) {
+            case 'add':
+                this.opAdd(obj, pathParts, value);
+                break;
+            case 'remove':
+                this.opRemove(obj, pathParts);
+                break;
+            case 'replace':
+                this.opReplace(obj, pathParts, value);
+                break;
+            case 'move':
+                if (!from) throw new Error('Move operation requires "from" property');
+                const fromParts = this.parsePath(from);
+                const movedValue = this.getValue(obj, fromParts);
+                this.opRemove(obj, fromParts);
+                this.opAdd(obj, pathParts, movedValue);
+                break;
+            case 'copy':
+                if (!from) throw new Error('Copy operation requires "from" property');
+                const fromPartsCopy = this.parsePath(from);
+                const copiedValue = this.getValue(obj, fromPartsCopy);
+                this.opAdd(obj, pathParts, copiedValue);
+                break;
+            case 'test':
+                const testValue = this.getValue(obj, pathParts);
+                if (JSON.stringify(testValue) !== JSON.stringify(value)) {
+                    throw new Error(`Test failed at path ${path}`);
+                }
+                break;
+            default:
+                throw new Error(`Unknown operation: ${op}`);
+        }
+    }
+
+    parsePath (path) {
+        // Parse JSON Pointer path (RFC 6901)
+        if (path === '') return [];
+        if (!path.startsWith('/')) {
+            throw new Error('Path must start with /');
+        }
+        return path.substring(1).split('/').map(part => {
+            // Unescape special characters
+            return part.replace(/~1/g, '/').replace(/~0/g, '~');
+        });
+    }
+
+    getValue (obj, pathParts) {
+        // Navigate to the value at the given path
+        let current = obj;
+        for (let i = 0; i < pathParts.length; i++) {
+            const part = pathParts[i];
+            if (current === null || current === undefined) {
+                throw new Error(`Cannot read property at path: ${pathParts.slice(0, i + 1).join('/')}`);
+            }
+            current = current[part];
+        }
+        return current;
+    }
+
+    opAdd (obj, pathParts, value) {
+        // Add operation: adds a value at the specified path
+        if (pathParts.length === 0) {
+            throw new Error('Cannot add to root');
+        }
+
+        const parentPath = pathParts.slice(0, -1);
+        const key = pathParts[pathParts.length - 1];
+        const parent = this.getValue(obj, parentPath);
+
+        if (Array.isArray(parent)) {
+            if (key === '-') {
+                parent.push(value);
+            } else {
+                const index = parseInt(key, 10);
+                parent.splice(index, 0, value);
+            }
+        } else {
+            parent[key] = value;
+        }
+        console.log(`Added value at ${pathParts.join('/')}`);
+    }
+
+    opRemove (obj, pathParts) {
+        // Remove operation: removes the value at the specified path
+        if (pathParts.length === 0) {
+            throw new Error('Cannot remove root');
+        }
+
+        const parentPath = pathParts.slice(0, -1);
+        const key = pathParts[pathParts.length - 1];
+        const parent = this.getValue(obj, parentPath);
+
+        if (Array.isArray(parent)) {
+            const index = parseInt(key, 10);
+            parent.splice(index, 1);
+        } else {
+            delete parent[key];
+        }
+        console.log(`Removed value at ${pathParts.join('/')}`);
+    }
+
+    opReplace (obj, pathParts, value) {
+        // Replace operation: replaces the value at the specified path
+        if (pathParts.length === 0) {
+            throw new Error('Cannot replace root');
+        }
+
+        const parentPath = pathParts.slice(0, -1);
+        const key = pathParts[pathParts.length - 1];
+        const parent = this.getValue(obj, parentPath);
+
+        parent[key] = value;
+        console.log(`Replaced value at ${pathParts.join('/')}`);
+    }
+
     loadProject (projectData) {
         var binaryString = atob(projectData);
         var bytes = new Uint8Array(binaryString.length);

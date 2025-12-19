@@ -286,10 +286,57 @@ class GUI extends React.Component {
             console.log(`Current blocks:`, targetSprite.blocks);
             console.log(`Current block count:`, Object.keys(targetSprite.blocks._blocks).length);
 
-            // Apply each operation using the proper Blocks API methods
+            const {deserializeBlocks} = require('scratch-vm/src/serialization/sb3');
+
+            // First pass: collect all blocks to add/replace and process removals
+            const blocksToAdd = {};
+            const blocksToRemove = [];
+            const otherOperations = [];
+
             for (const operation of patchOperations) {
-                console.log('Applying operation:', operation);
-                this.applyBlockOperation(targetSprite.blocks, operation);
+                const {op, path, value} = operation;
+                const pathParts = this.parsePath(path);
+                const blockId = pathParts[0];
+
+                if (pathParts.length === 1) {
+                    // Whole-block operation
+                    if (op === 'add') {
+                        blocksToAdd[blockId] = {...value};
+                    } else if (op === 'remove') {
+                        blocksToRemove.push(blockId);
+                    } else if (op === 'replace') {
+                        blocksToRemove.push(blockId);
+                        blocksToAdd[blockId] = {...value};
+                    }
+                } else {
+                    // Nested property operation - handle later
+                    otherOperations.push(operation);
+                }
+            }
+
+            // Remove blocks first
+            console.log(`Deleting ${blocksToRemove.length} blocks:`, blocksToRemove);
+            blocksToRemove.forEach(blockId => {
+                targetSprite.blocks.deleteBlock(blockId);
+            });
+
+            // Deserialize all blocks together (so references between blocks are resolved)
+            console.log(`Deserializing ${Object.keys(blocksToAdd).length} blocks...`);
+            deserializeBlocks(blocksToAdd);
+            console.log(`Deserialized blocks:`, blocksToAdd);
+
+            // Create all the deserialized blocks
+            console.log(`Creating blocks...`);
+            for (const blockId in blocksToAdd) {
+                const blockData = {...blocksToAdd[blockId], id: blockId};
+                console.log(`Creating block ${blockId}:`, blockData);
+                targetSprite.blocks.createBlock(blockData);
+            }
+
+            // Apply any nested property operations
+            for (const operation of otherOperations) {
+                console.log('Applying nested operation:', operation);
+                this.applyOperation(targetSprite.blocks._blocks, operation);
             }
 
             console.log(`Blocks after patching:`, targetSprite.blocks._blocks);
@@ -312,82 +359,6 @@ class GUI extends React.Component {
 
         } catch (error) {
             console.error('Error applying JSON patch:', error);
-        }
-    }
-
-    applyBlockOperation (blocks, operation) {
-        // Apply a single RFC 6902 operation using the Blocks API
-        const {op, path, value} = operation;
-        const {deserializeBlocks} = require('scratch-vm/src/serialization/sb3');
-
-        if (!op || !path) {
-            throw new Error('Operation must have "op" and "path" properties');
-        }
-
-        const pathParts = this.parsePath(path);
-        console.log(`Block operation: ${op}, Path: ${path}, Parts:`, pathParts);
-
-        // The first part of the path should be the block ID
-        const blockId = pathParts[0];
-
-        if (!blockId) {
-            throw new Error('Path must include a block ID');
-        }
-
-        switch (op) {
-            case 'add':
-                if (pathParts.length === 1) {
-                    // Adding a new block: path is just "/blockId"
-                    // Value should be the full block data
-                    // Deserialize the block first (converts compressed SB3 format to full format)
-                    const blocksToDeserialize = {[blockId]: {...value}};
-                    deserializeBlocks(blocksToDeserialize);
-                    const blockData = {...blocksToDeserialize[blockId], id: blockId};
-                    console.log(`Creating block ${blockId}:`, blockData);
-                    blocks.createBlock(blockData);
-                } else {
-                    // Modifying a property within an existing block
-                    // Fall back to direct object manipulation for nested properties
-                    this.applyOperation(blocks._blocks, operation);
-                }
-                break;
-
-            case 'remove':
-                if (pathParts.length === 1) {
-                    // Removing an entire block: path is just "/blockId"
-                    console.log(`Deleting block ${blockId}`);
-                    blocks.deleteBlock(blockId);
-                } else {
-                    // Removing a property within a block
-                    this.applyOperation(blocks._blocks, operation);
-                }
-                break;
-
-            case 'replace':
-                if (pathParts.length === 1) {
-                    // Replacing an entire block: delete then create
-                    // Deserialize the block first (converts compressed SB3 format to full format)
-                    const blocksToDeserialize = {[blockId]: {...value}};
-                    deserializeBlocks(blocksToDeserialize);
-                    const blockData = {...blocksToDeserialize[blockId], id: blockId};
-                    console.log(`Replacing block ${blockId}:`, blockData);
-                    blocks.deleteBlock(blockId);
-                    blocks.createBlock(blockData);
-                } else {
-                    // Replacing a property within a block
-                    this.applyOperation(blocks._blocks, operation);
-                }
-                break;
-
-            case 'move':
-            case 'copy':
-            case 'test':
-                // For these operations, fall back to direct object manipulation
-                this.applyOperation(blocks._blocks, operation);
-                break;
-
-            default:
-                throw new Error(`Unknown operation: ${op}`);
         }
     }
 

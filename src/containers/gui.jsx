@@ -109,6 +109,22 @@ class GUI extends React.Component {
             }
         }
 
+        if (event.data?.type === 'SYNC_STATE') {
+            const requestId = event.data.requestId;
+            console.log('[GlitterEditor] SYNC_STATE received, ID:', requestId);
+            const state = event.data.state;
+            console.log('[GlitterEditor] State data:', state);
+            this.syncState(state);
+            // Send response back to parent
+            if (event.source) {
+                event.source.postMessage({
+                    type: 'SYNC_STATE_RESPONSE',
+                    requestId: requestId,
+                }, event.origin);
+                console.log('[GlitterEditor] Sent SYNC_STATE_RESPONSE');
+            }
+        }
+
         if (event.data?.type === 'APPLY_JSON_PATCH') {
             const requestId = event.data.requestId;
             console.log('[GlitterEditor] APPLY_JSON_PATCH received, ID:', requestId);
@@ -254,6 +270,26 @@ class GUI extends React.Component {
         }
     }
 
+    syncState (state){
+       const sb3 = require('scratch-vm/src/serialization/sb3'); 
+       // Directly load the JSON project data
+        // Convert JSON to binary format first
+        const projectJson = JSON.stringify(state);
+        const projectData = new TextEncoder().encode(projectJson);
+
+        this.props.vm.loadProject(projectData.buffer);
+
+        // Refresh UI
+        this.props.vm.emitWorkspaceUpdate();
+        this.props.vm.runtime.requestBlocksUpdate();
+       /*
+       const projectData = sb3.serialize(state);
+
+       this.props.vm.loadProject(projectData);
+
+       this.props.vm.emitWorkspaceUpdate();
+       this.props.vm.runtime.requestBlocksUpdate();*/
+    }
 
     applyJSONPatch (spriteName, patchOperations) {
         // Apply RFC 6902 JSON Patch operations to a specific sprite's blocks

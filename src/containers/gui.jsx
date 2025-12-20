@@ -442,6 +442,10 @@ class GUI extends React.Component {
         const key = pathParts[pathParts.length - 1];
         const parent = this.getValue(obj, parentPath);
 
+        if (parent === null || parent === undefined) {
+            throw new Error(`Cannot add to non-existent path: ${parentPath.join('/')}`);
+        }
+
         if (Array.isArray(parent)) {
             if (key === '-') {
                 parent.push(value);
@@ -465,6 +469,10 @@ class GUI extends React.Component {
         const key = pathParts[pathParts.length - 1];
         const parent = this.getValue(obj, parentPath);
 
+        if (parent === null || parent === undefined) {
+            throw new Error(`Cannot remove from non-existent path: ${parentPath.join('/')}`);
+        }
+
         if (Array.isArray(parent)) {
             const index = parseInt(key, 10);
             parent.splice(index, 1);
@@ -483,6 +491,10 @@ class GUI extends React.Component {
         const parentPath = pathParts.slice(0, -1);
         const key = pathParts[pathParts.length - 1];
         const parent = this.getValue(obj, parentPath);
+
+        if (parent === null || parent === undefined) {
+            throw new Error(`Cannot replace at non-existent path: ${parentPath.join('/')}`);
+        }
 
         parent[key] = value;
         console.log(`Replaced value at ${pathParts.join('/')}`);

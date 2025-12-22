@@ -156,7 +156,7 @@ class GUI extends React.Component {
     getProjectState () {
         // Get the project JSON from the VM
         try {
-            const projectJson = this.props.vm.toJSON();
+            const projectJson = this.props.vm.toJSON(null, { allowOptimization: false });
             return JSON.stringify(projectJson);
         } catch (error) {
             console.error('Error getting project state:', error);

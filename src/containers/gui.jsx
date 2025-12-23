@@ -149,8 +149,22 @@ class GUI extends React.Component {
 
         if (event.data?.type === 'GLITTER_LOAD_PROJECT') {
             const projectData = event.data.projectData;
-            const name = event.data.fileName;            
+            const name = event.data.fileName;
             this.loadProject(projectData);
+        }
+
+        // Handle HIGHLIGHT_BLOCK - highlight a block in the toolbox/flyout by opcode
+        if (event.data?.type === 'HIGHLIGHT_BLOCK') {
+            const opcode = event.data.opcode;
+            console.log('[GlitterEditor] HIGHLIGHT_BLOCK received, opcode:', opcode);
+            this.highlightBlockInFlyout(opcode);
+        }
+
+        // Handle DEHIGHLIGHT_BLOCK - remove highlight from blocks in the toolbox/flyout
+        if (event.data?.type === 'DEHIGHLIGHT_BLOCK') {
+            const opcode = event.data.opcode;
+            console.log('[GlitterEditor] DEHIGHLIGHT_BLOCK received, opcode:', opcode);
+            this.dehighlightBlockInFlyout(opcode);
         }
     }
     getProjectState () {
@@ -544,6 +558,267 @@ class GUI extends React.Component {
         }
         this.props.vm.loadProject(bytes.buffer);
     }
+
+    // Store for tracking highlighted blocks
+    _highlightedBlocks = new Map(); // opcode -> { block, originalFill, flashTimer }
+
+    highlightBlockInFlyout (opcode) {
+        try {
+            // Get the Blockly workspace
+            const workspace = window.Blockly?.getMainWorkspace();
+            if (!workspace) {
+                console.error('[GlitterEditor] Blockly workspace not available');
+                return;
+            }
+
+            // Access toolbox_ directly (internal property)
+            const toolbox = workspace.toolbox_;
+            if (!toolbox) {
+                console.error('[GlitterEditor] Toolbox not available');
+                return;
+            }
+
+            const flyout = workspace.getFlyout();
+            if (!flyout) {
+                console.error('[GlitterEditor] Flyout not available');
+                return;
+            }
+
+            // Get the category from the opcode (e.g., 'motion_movesteps' -> 'motion')
+            const category = opcode.split('_')[0];
+
+            // Map opcode prefixes to category IDs used in the toolbox
+            const categoryMap = {
+                'motion': 'motion',
+                'looks': 'looks',
+                'sound': 'sounds',
+                'event': 'events',
+                'control': 'control',
+                'sensing': 'sensing',
+                'operator': 'operators',
+                'data': 'data',
+                'procedures': 'myBlocks',
+                'pen': 'pen'
+            };
+
+            const categoryId = categoryMap[category] || category;
+
+            // Select the appropriate category to show the block in the flyout
+            console.log(`[GlitterEditor] Selecting category: ${categoryId}`);
+            toolbox.setSelectedCategoryById(categoryId);
+
+            // Refresh the toolbox selection to ensure flyout is updated
+            workspace.refreshToolboxSelection_();
+
+            // Wait a bit for the flyout to update, then find and highlight the block
+            setTimeout(() => {
+                const flyoutWorkspace = flyout.getWorkspace();
+                if (!flyoutWorkspace) {
+                    console.error('[GlitterEditor] Flyout workspace not available');
+                    return;
+                }
+
+                // Find the block with the matching opcode in the flyout
+                const allBlocks = flyoutWorkspace.getAllBlocks();
+                console.log(`[GlitterEditor] All blocks in flyout:`, allBlocks.map(b => b.type));
+                let targetBlock = null;
+
+                for (const block of allBlocks) {
+                    if (block.type === opcode) {
+                        targetBlock = block;
+                        break;
+                    }
+                }
+
+                if (!targetBlock) {
+                    console.warn(`[GlitterEditor] Block with opcode "${opcode}" not found in flyout`);
+                    return;
+                }
+
+                console.log(`[GlitterEditor] Found block:`, targetBlock);
+
+                // Scroll the block into view within the flyout
+                this.scrollBlockIntoViewInFlyout(flyout, targetBlock);
+
+                // Highlight the block with a flashing effect
+                this.flashBlock(targetBlock, opcode);
+
+            }, 150); // Small delay to let the flyout render
+
+        } catch (error) {
+            console.error('[GlitterEditor] Error highlighting block:', error);
+        }
+    }
+
+    scrollBlockIntoViewInFlyout (flyout, block) {
+        try {
+            // Get the block's position
+            const blockPos = block.getRelativeToSurfaceXY();
+            const flyoutWorkspace = flyout.getWorkspace();
+            const metrics = flyoutWorkspace.getMetrics();
+
+            // Calculate the scroll position to center the block
+            const scrollX = 0; // Flyout typically only scrolls vertically
+            const scrollY = blockPos.y - (metrics.viewHeight / 2) + (block.height / 2);
+
+            // Use the flyout's scrollbar to scroll to the position
+            if (flyout.scrollbar_) {
+                flyout.scrollbar_.set(scrollX, Math.max(0, scrollY));
+            }
+
+            console.log(`[GlitterEditor] Scrolled flyout to block at y=${blockPos.y}`);
+        } catch (error) {
+            console.error('[GlitterEditor] Error scrolling to block:', error);
+        }
+    }
+
+    flashBlock (block, opcode) {
+        // Clear any existing highlight for this opcode
+        if (this._highlightedBlocks.has(opcode)) {
+            const existing = this._highlightedBlocks.get(opcode);
+            if (existing.flashTimer) {
+                clearTimeout(existing.flashTimer);
+            }
+            // Remove glow filter
+            if (existing.block?.svgPath_) {
+                existing.block.svgPath_.style.filter = '';
+            }
+        }
+
+        // Ensure the purple glow filter exists in the SVG
+        this.ensureGlowFilter();
+
+        // Flash the block with a purple glow
+        let flashOn = true;
+        let count = 6; // 3 complete flashes
+
+        const doFlash = () => {
+            if (block.svgPath_) {
+                block.svgPath_.style.filter = flashOn ? 'url(#glitterPurpleGlow)' : '';
+            }
+            flashOn = !flashOn;
+            count--;
+
+            if (count > 0) {
+                const timer = setTimeout(doFlash, 200);
+                this._highlightedBlocks.set(opcode, {
+                    block,
+                    flashTimer: timer
+                });
+            } else {
+                // After flashing, keep the glow
+                if (block.svgPath_) {
+                    block.svgPath_.style.filter = 'url(#glitterPurpleGlow)';
+                }
+                this._highlightedBlocks.set(opcode, {
+                    block,
+                    flashTimer: null
+                });
+            }
+        };
+
+        doFlash();
+    }
+
+    ensureGlowFilter () {
+        // Check if the filter already exists
+        if (document.getElementById('glitterPurpleGlow')) {
+            return;
+        }
+
+        // Find an SVG element to add the filter to (use the workspace SVG)
+        const workspaceSvg = document.querySelector('.blocklySvg');
+        if (!workspaceSvg) {
+            console.error('[GlitterEditor] Could not find workspace SVG for glow filter');
+            return;
+        }
+
+        // Check if defs exists, create if not
+        let defs = workspaceSvg.querySelector('defs');
+        if (!defs) {
+            defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            workspaceSvg.insertBefore(defs, workspaceSvg.firstChild);
+        }
+
+        // Create the purple glow filter
+        const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+        filter.setAttribute('id', 'glitterPurpleGlow');
+        filter.setAttribute('x', '-50%');
+        filter.setAttribute('y', '-50%');
+        filter.setAttribute('width', '200%');
+        filter.setAttribute('height', '200%');
+
+        // Gaussian blur for the glow (very thick for maximum visibility)
+        const feGaussianBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+        feGaussianBlur.setAttribute('in', 'SourceGraphic');
+        feGaussianBlur.setAttribute('stdDeviation', '12');
+        feGaussianBlur.setAttribute('result', 'blur');
+
+        // Color the glow purple with high intensity
+        const feColorMatrix = document.createElementNS('http://www.w3.org/2000/svg', 'feColorMatrix');
+        feColorMatrix.setAttribute('in', 'blur');
+        feColorMatrix.setAttribute('type', 'matrix');
+        feColorMatrix.setAttribute('values', '0 0 0 0 0.6  0 0 0 0 0.4  0 0 0 0 1  0 0 0 2.5 0'); // Purple color with increased alpha
+        feColorMatrix.setAttribute('result', 'glow');
+
+        // Composite to intensify the glow
+        const feComposite = document.createElementNS('http://www.w3.org/2000/svg', 'feComposite');
+        feComposite.setAttribute('in', 'glow');
+        feComposite.setAttribute('in2', 'glow');
+        feComposite.setAttribute('operator', 'over');
+        feComposite.setAttribute('result', 'glowIntense');
+
+        // Merge the intense glow with the original
+        const feMerge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
+        const feMergeNode1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+        feMergeNode1.setAttribute('in', 'glowIntense');
+        const feMergeNode2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+        feMergeNode2.setAttribute('in', 'SourceGraphic');
+        feMerge.appendChild(feMergeNode1);
+        feMerge.appendChild(feMergeNode2);
+
+        filter.appendChild(feGaussianBlur);
+        filter.appendChild(feColorMatrix);
+        filter.appendChild(feComposite);
+        filter.appendChild(feMerge);
+        defs.appendChild(filter);
+
+        console.log('[GlitterEditor] Created purple glow filter');
+    }
+
+    dehighlightBlockInFlyout (opcode) {
+        try {
+            if (opcode) {
+                // Dehighlight a specific block
+                if (this._highlightedBlocks.has(opcode)) {
+                    const highlighted = this._highlightedBlocks.get(opcode);
+                    if (highlighted.flashTimer) {
+                        clearTimeout(highlighted.flashTimer);
+                    }
+                    if (highlighted.block?.svgPath_) {
+                        highlighted.block.svgPath_.style.filter = '';
+                    }
+                    this._highlightedBlocks.delete(opcode);
+                    console.log(`[GlitterEditor] Dehighlighted block: ${opcode}`);
+                }
+            } else {
+                // Dehighlight all blocks
+                for (const highlighted of this._highlightedBlocks.values()) {
+                    if (highlighted.flashTimer) {
+                        clearTimeout(highlighted.flashTimer);
+                    }
+                    if (highlighted.block?.svgPath_) {
+                        highlighted.block.svgPath_.style.filter = '';
+                    }
+                }
+                this._highlightedBlocks.clear();
+                console.log('[GlitterEditor] Dehighlighted all blocks');
+            }
+        } catch (error) {
+            console.error('[GlitterEditor] Error dehighlighting block:', error);
+        }
+    }
+
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId) {
             if (this.props.projectId !== null) {

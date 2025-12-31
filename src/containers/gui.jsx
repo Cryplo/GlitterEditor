@@ -736,7 +736,7 @@ class GUI extends React.Component {
 
         const doFlash = () => {
             if (block.svgPath_) {
-                block.svgPath_.style.filter = flashOn ? 'url(#glitterPurpleGlow)' : '';
+                block.svgPath_.style.filter = flashOn ? 'url(#glitterGoldenGlow)' : '';
             }
             flashOn = !flashOn;
             count--;
@@ -750,7 +750,7 @@ class GUI extends React.Component {
             } else {
                 // After flashing, keep the glow
                 if (block.svgPath_) {
-                    block.svgPath_.style.filter = 'url(#glitterPurpleGlow)';
+                    block.svgPath_.style.filter = 'url(#glitterGoldenGlow)';
                 }
                 this._highlightedBlocks.set(opcode, {
                     block,
@@ -764,7 +764,7 @@ class GUI extends React.Component {
 
     ensureGlowFilter () {
         // Check if the filter already exists
-        if (document.getElementById('glitterPurpleGlow')) {
+        if (document.getElementById('glitterGoldenGlow')) {
             return;
         }
 
@@ -784,7 +784,7 @@ class GUI extends React.Component {
 
         // Create the purple glow filter
         const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
-        filter.setAttribute('id', 'glitterPurpleGlow');
+        filter.setAttribute('id', 'glitterGoldenGlow');
         filter.setAttribute('x', '-50%');
         filter.setAttribute('y', '-50%');
         filter.setAttribute('width', '200%');
@@ -796,11 +796,11 @@ class GUI extends React.Component {
         feGaussianBlur.setAttribute('stdDeviation', '12');
         feGaussianBlur.setAttribute('result', 'blur');
 
-        // Color the glow purple with high intensity
+        // Color the glow #ffd166 (golden yellow) with high intensity
         const feColorMatrix = document.createElementNS('http://www.w3.org/2000/svg', 'feColorMatrix');
         feColorMatrix.setAttribute('in', 'blur');
         feColorMatrix.setAttribute('type', 'matrix');
-        feColorMatrix.setAttribute('values', '0 0 0 0 0.6  0 0 0 0 0.4  0 0 0 0 1  0 0 0 2.5 0'); // Purple color with increased alpha
+        feColorMatrix.setAttribute('values', '0 0 0 0 1  0 0 0 0 0.82  0 0 0 0 0.4  0 0 0 2.5 0'); // #ffd166 color with increased alpha
         feColorMatrix.setAttribute('result', 'glow');
 
         // Composite to intensify the glow
@@ -825,7 +825,7 @@ class GUI extends React.Component {
         filter.appendChild(feMerge);
         defs.appendChild(filter);
 
-        console.log('[GlitterEditor] Created purple glow filter');
+        console.log('[GlitterEditor] Created golden glow filter (#ffd166)');
     }
 
     dehighlightBlockInFlyout (opcode) {

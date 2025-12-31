@@ -18,6 +18,8 @@ import {
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
 
+import {selectLocale} from '../reducers/locales';
+
 import {
     closeCostumeLibrary,
     closeBackdropLibrary,
@@ -165,6 +167,46 @@ class GUI extends React.Component {
             const opcode = event.data.opcode;
             console.log('[GlitterEditor] DEHIGHLIGHT_BLOCK received, opcode:', opcode);
             this.dehighlightBlockInFlyout(opcode);
+        }
+
+        // Handle CHANGE_LANGUAGE - change the editor's language
+        if (event.data?.type === 'CHANGE_LANGUAGE') {
+            const requestId = event.data.requestId;
+            const locale = event.data.locale;
+            console.log('[GlitterEditor] CHANGE_LANGUAGE received, locale:', locale);
+
+            if (locale) {
+                // Dispatch the locale change through Redux
+                if (this.props.onChangeLanguage) {
+                    this.props.onChangeLanguage(locale);
+                    console.log('[GlitterEditor] Dispatched selectLocale action');
+                }
+                // Update the document's lang attribute (for accessibility and CSS selectors)
+                document.documentElement.lang = locale;
+
+                // Also update the VM's locale directly to ensure blocks update
+                if (this.props.vm) {
+                    const messages = window.ReduxStore?.getState()?.locales?.messagesByLocale?.[locale];
+                    if (messages) {
+                        this.props.vm.setLocale(locale, messages).then(() => {
+                            this.props.vm.refreshWorkspace();
+                            console.log('[GlitterEditor] VM locale updated and workspace refreshed');
+                        });
+                    }
+                }
+
+                console.log('[GlitterEditor] Language changed to:', locale);
+            }
+
+            // Send response back to parent
+            if (event.source) {
+                event.source.postMessage({
+                    type: 'CHANGE_LANGUAGE_RESPONSE',
+                    requestId: requestId,
+                    locale: locale
+                }, event.origin);
+                console.log('[GlitterEditor] Sent CHANGE_LANGUAGE_RESPONSE');
+            }
         }
     }
     getProjectState () {
@@ -883,6 +925,7 @@ GUI.propTypes = {
     isShowingProject: PropTypes.bool,
     isTotallyNormal: PropTypes.bool,
     loadingStateVisible: PropTypes.bool,
+    onChangeLanguage: PropTypes.func,
     onProjectLoaded: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onStorageInit: PropTypes.func,
@@ -947,7 +990,8 @@ const mapDispatchToProps = dispatch => ({
     onActivateSoundsTab: () => dispatch(activateTab(SOUNDS_TAB_INDEX)),
     onRequestCloseBackdropLibrary: () => dispatch(closeBackdropLibrary()),
     onRequestCloseCostumeLibrary: () => dispatch(closeCostumeLibrary()),
-    onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal())
+    onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
+    onChangeLanguage: locale => dispatch(selectLocale(locale))
 });
 
 const ConnectedGUI = injectIntl(connect(

@@ -266,15 +266,18 @@ class Blocks extends React.Component {
         // Generate a unique request ID
         const requestId = `explain_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         const blockId = block.id;
+        const editingTarget = this.props.vm.editingTarget;
+        const spriteName = editingTarget ? (editingTarget.isStage ? 'Stage' : editingTarget.sprite.name) : null;
 
-        console.log('[GlitterEditor] Requesting block explanation:', {requestId, blockId});
+        console.log('[GlitterEditor] Requesting block explanation:', {requestId, blockId, spriteName});
 
         // Send post message to parent window (GlitterCode)
         if (window.parent && window.parent !== window) {
             window.parent.postMessage({
                 type: 'REQUEST_BLOCK_EXPLANATION',
                 requestId: requestId,
-                blockId: blockId
+                blockId: blockId,
+                spriteName: spriteName
             }, '*');
             console.log('[GlitterEditor] Sent REQUEST_BLOCK_EXPLANATION message');
         } else {

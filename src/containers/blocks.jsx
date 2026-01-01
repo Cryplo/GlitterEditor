@@ -122,7 +122,9 @@ class Blocks extends React.Component {
             'onWorkspaceMetricsChange',
             'setBlocks',
             'setLocale',
-            'handleEnableProcedureReturns'
+            'handleEnableProcedureReturns',
+            'setupGlitterContextMenu',
+            'handleExplainWithGlitter'
         ]);
         this.ScratchBlocks.prompt = this.handlePromptStart;
         this.ScratchBlocks.statusButtonCallback = this.handleConnectionModalStart;
@@ -229,6 +231,55 @@ class Blocks extends React.Component {
         }
 
         gentlyRequestPersistentStorage();
+
+        // Setup Glitter context menu for block explanation
+        this.setupGlitterContextMenu();
+    }
+
+    setupGlitterContextMenu () {
+        // Hook into ScratchBlocks context menu to add "Explain with Glitter" option
+        const ScratchBlocks = this.ScratchBlocks;
+        const self = this;
+        const oldShow = ScratchBlocks.ContextMenu.show;
+
+        ScratchBlocks.ContextMenu.show = function (event, items, rtl) {
+            const gesture = ScratchBlocks.mainWorkspace.currentGesture_;
+            const block = gesture ? gesture.targetBlock_ : null;
+
+            // Only add the menu item when right-clicking on a block (not workspace or flyout)
+            if (block && !gesture.flyout_) {
+                items.push({
+                    enabled: true,
+                    text: 'Explain with Glitter',
+                    separator: true,
+                    callback: () => {
+                        self.handleExplainWithGlitter(block);
+                    }
+                });
+            }
+
+            oldShow.call(this, event, items, rtl);
+        };
+    }
+
+    handleExplainWithGlitter (block) {
+        // Generate a unique request ID
+        const requestId = `explain_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const blockId = block.id;
+
+        console.log('[GlitterEditor] Requesting block explanation:', {requestId, blockId});
+
+        // Send post message to parent window (GlitterCode)
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+                type: 'REQUEST_BLOCK_EXPLANATION',
+                requestId: requestId,
+                blockId: blockId
+            }, '*');
+            console.log('[GlitterEditor] Sent REQUEST_BLOCK_EXPLANATION message');
+        } else {
+            console.warn('[GlitterEditor] No parent window to send message to');
+        }
     }
     shouldComponentUpdate (nextProps, nextState) {
         return (

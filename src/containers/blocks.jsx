@@ -124,7 +124,7 @@ class Blocks extends React.Component {
             'setLocale',
             'handleEnableProcedureReturns',
             'setupGlitterContextMenu',
-            'handleExplainWithGlitter'
+            'handleGlitterBlockAction'
         ]);
         this.ScratchBlocks.prompt = this.handlePromptStart;
         this.ScratchBlocks.statusButtonCallback = this.handleConnectionModalStart;
@@ -246,14 +246,22 @@ class Blocks extends React.Component {
             const gesture = ScratchBlocks.mainWorkspace.currentGesture_;
             const block = gesture ? gesture.targetBlock_ : null;
 
-            // Only add the menu item when right-clicking on a block (not workspace or flyout)
+            // Only add the menu items when right-clicking on a block (not workspace or flyout)
             if (block && !gesture.flyout_) {
                 items.push({
                     enabled: true,
                     text: 'Explain with Glitter',
                     separator: true,
                     callback: () => {
-                        self.handleExplainWithGlitter(block);
+                        self.handleGlitterBlockAction(block, 'REQUEST_BLOCK_EXPLANATION');
+                    }
+                });
+                items.push({
+                    enabled: true,
+                    text: 'Reference for Glitter',
+                    separator: false,
+                    callback: () => {
+                        self.handleGlitterBlockAction(block, 'ADD_REFERENCE_BLOCK');
                     }
                 });
             }
@@ -262,24 +270,26 @@ class Blocks extends React.Component {
         };
     }
 
-    handleExplainWithGlitter (block) {
+    handleGlitterBlockAction (block, messageType) {
         // Generate a unique request ID
-        const requestId = `explain_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const requestId = `${messageType.toLowerCase()}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         const blockId = block.id;
+        const blockOpcode = block.type;
         const editingTarget = this.props.vm.editingTarget;
         const spriteName = editingTarget ? (editingTarget.isStage ? 'Stage' : editingTarget.sprite.name) : null;
 
-        console.log('[GlitterEditor] Requesting block explanation:', {requestId, blockId, spriteName});
+        console.log(`[GlitterEditor] Sending ${messageType}:`, {requestId, blockId, blockOpcode, spriteName});
 
         // Send post message to parent window (GlitterCode)
         if (window.parent && window.parent !== window) {
             window.parent.postMessage({
-                type: 'REQUEST_BLOCK_EXPLANATION',
+                type: messageType,
                 requestId: requestId,
                 blockId: blockId,
+                blockOpcode: blockOpcode,
                 spriteName: spriteName
             }, '*');
-            console.log('[GlitterEditor] Sent REQUEST_BLOCK_EXPLANATION message');
+            console.log(`[GlitterEditor] Sent ${messageType} message`);
         } else {
             console.warn('[GlitterEditor] No parent window to send message to');
         }

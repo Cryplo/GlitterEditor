@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import ReactModal from 'react-modal';
 import VM from 'scratch-vm';
 import {injectIntl, intlShape} from 'react-intl';
+import JSZip from '@turbowarp/jszip';
 
 import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import {
@@ -59,6 +60,12 @@ class GUI extends React.Component {
     constructor (props) {
         super(props);
         this.handlePostMessage = this.handlePostMessage.bind(this);
+        this.captureProjectAssets = this.captureProjectAssets.bind(this);
+        this.syncState = this.syncState.bind(this);
+        
+        // Store for project assets (costumes, sounds) - used for in-memory .sb3 patching
+        // Maps filename (e.g., 'abc123.svg') to Uint8Array binary data
+        this._projectAssets = {};
     }
     componentDidMount () {
         setIsScratchDesktop(this.props.isScratchDesktop);
@@ -68,6 +75,25 @@ class GUI extends React.Component {
 
         // Listen for project state requests from parent window (GlitterCode)
         window.addEventListener('message', this.handlePostMessage);
+        
+        // Capture assets when project loads (for in-memory .sb3 patching)
+        if (this.props.vm) {
+            this.props.vm.on('PROJECT_LOADED', () => {
+                console.log('[GlitterEditor] Project loaded, capturing assets...');
+                this.captureProjectAssets();
+            });
+            
+            // Also capture when assets are added (costumes/sounds uploaded)
+            this.props.vm.on('ASSET_PROGRESS', () => {
+                // Debounce asset capture to avoid excessive calls
+                if (this._assetCaptureTimeout) {
+                    clearTimeout(this._assetCaptureTimeout);
+                }
+                this._assetCaptureTimeout = setTimeout(() => {
+                    this.captureProjectAssets();
+                }, 1000);
+            });
+        }
     }
     componentWillUnmount () {
         window.removeEventListener('message', this.handlePostMessage);
@@ -116,15 +142,32 @@ class GUI extends React.Component {
             console.log('[GlitterEditor] SYNC_STATE received, ID:', requestId);
             const state = event.data.state;
             console.log('[GlitterEditor] State data:', state);
-            this.syncState(state);
-            // Send response back to parent
-            if (event.source) {
-                event.source.postMessage({
-                    type: 'SYNC_STATE_RESPONSE',
-                    requestId: requestId,
-                }, event.origin);
-                console.log('[GlitterEditor] Sent SYNC_STATE_RESPONSE');
-            }
+            
+            // syncState is now async, handle it properly
+            this.syncState(state)
+                .then(() => {
+                    // Send success response back to parent
+                    if (event.source) {
+                        event.source.postMessage({
+                            type: 'SYNC_STATE_RESPONSE',
+                            requestId: requestId,
+                            success: true
+                        }, event.origin);
+                        console.log('[GlitterEditor] Sent SYNC_STATE_RESPONSE (success)');
+                    }
+                })
+                .catch(error => {
+                    // Send error response back to parent
+                    if (event.source) {
+                        event.source.postMessage({
+                            type: 'SYNC_STATE_RESPONSE',
+                            requestId: requestId,
+                            success: false,
+                            error: error.message
+                        }, event.origin);
+                        console.log('[GlitterEditor] Sent SYNC_STATE_RESPONSE (error):', error.message);
+                    }
+                });
         }
 
         if (event.data?.type === 'APPLY_JSON_PATCH') {
@@ -153,6 +196,10 @@ class GUI extends React.Component {
             const projectData = event.data.projectData;
             const name = event.data.fileName;
             this.loadProject(projectData);
+            // Capture assets after loading the project (with small delay to ensure load completes)
+            setTimeout(() => {
+                this.captureProjectAssets();
+            }, 500);
         }
 
         // Handle HIGHLIGHT_BLOCK - highlight a block in the toolbox/flyout by opcode
@@ -326,25 +373,103 @@ class GUI extends React.Component {
         }
     }
 
-    syncState (state){
-       const sb3 = require('scratch-vm/src/serialization/sb3'); 
-       // Directly load the JSON project data
-        // Convert JSON to binary format first
-        const projectJson = JSON.stringify(state);
-        const projectData = new TextEncoder().encode(projectJson);
+    /**
+     * Capture all binary assets from the current project state.
+     * This extracts costumes and sounds from the VM and stores them in memory
+     * so they can be reused when syncing modified JSON from an LLM.
+     * @returns {Promise<void>}
+     */
+    async captureProjectAssets () {
+        if (!this.props.vm) {
+            console.warn('[GlitterEditor] VM not available for asset capture');
+            return;
+        }
 
-        this.props.vm.loadProject(projectData.buffer);
+        try {
+            // Use saveProjectSb3DontZip to get all project files without zipping
+            // This returns Record<string, Uint8Array> where keys are filenames
+            const projectFiles = this.props.vm.saveProjectSb3DontZip();
+            
+            // Extract only the asset files (everything except project.json)
+            const newAssets = {};
+            for (const [filename, data] of Object.entries(projectFiles)) {
+                if (filename !== 'project.json') {
+                    newAssets[filename] = data;
+                }
+            }
+            
+            // Merge with existing assets (in case some assets were removed from project
+            // but might be referenced again by LLM changes)
+            this._projectAssets = {
+                ...this._projectAssets,
+                ...newAssets
+            };
+            
+            console.log(`[GlitterEditor] Captured ${Object.keys(newAssets).length} assets, total stored: ${Object.keys(this._projectAssets).length}`);
+        } catch (error) {
+            console.error('[GlitterEditor] Error capturing project assets:', error);
+        }
+    }
 
-        // Refresh UI
-        this.props.vm.emitWorkspaceUpdate();
-        this.props.vm.runtime.requestBlocksUpdate();
-       /*
-       const projectData = sb3.serialize(state);
+    /**
+     * Synchronize project state using in-memory .sb3 patching.
+     * This method takes a project.json object from an LLM, combines it with
+     * stored binary assets, creates a complete .sb3 file, and loads it into the VM.
+     * 
+     * @param {Object|string} state - The project.json data (object or JSON string)
+     * @returns {Promise<void>}
+     */
+    async syncState (state) {
+        if (!this.props.vm) {
+            console.error('[GlitterEditor] VM not available for state sync');
+            return;
+        }
 
-       this.props.vm.loadProject(projectData);
-
-       this.props.vm.emitWorkspaceUpdate();
-       this.props.vm.runtime.requestBlocksUpdate();*/
+        try {
+            console.log('[GlitterEditor] Starting in-memory .sb3 patching sync...');
+            
+            // First, capture current assets to ensure we have them stored
+            await this.captureProjectAssets();
+            
+            // Convert state to JSON string if it's an object
+            const projectJsonString = typeof state === 'string' ? state : JSON.stringify(state);
+            
+            // Create a new ZIP archive
+            const zip = new JSZip();
+            
+            // Add the modified project.json
+            zip.file('project.json', projectJsonString);
+            
+            // Add all stored binary assets
+            let assetsAdded = 0;
+            for (const [filename, data] of Object.entries(this._projectAssets)) {
+                zip.file(filename, data);
+                assetsAdded++;
+            }
+            
+            console.log(`[GlitterEditor] Created .sb3 with modified JSON and ${assetsAdded} assets`);
+            
+            // Generate the .sb3 file as ArrayBuffer
+            const sb3Buffer = await zip.generateAsync({
+                type: 'arraybuffer',
+                compression: 'DEFLATE',
+                compressionOptions: { level: 6 }
+            });
+            
+            console.log(`[GlitterEditor] Generated .sb3 buffer: ${sb3Buffer.byteLength} bytes`);
+            
+            // Load the complete .sb3 into the VM
+            await this.props.vm.loadProject(sb3Buffer);
+            
+            // Refresh UI
+            this.props.vm.emitWorkspaceUpdate();
+            this.props.vm.runtime.requestBlocksUpdate();
+            
+            console.log('[GlitterEditor] Successfully synced project state via .sb3 patching');
+        } catch (error) {
+            console.error('[GlitterEditor] Error syncing state:', error);
+            throw error;
+        }
     }
 
     applyJSONPatch (spriteName, patchOperations) {
